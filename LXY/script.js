@@ -1,4 +1,5 @@
-(()=> {
+// 脚本本体
+async function BondageClubLinXuanye() {
 	// 捕获元素聊天输入框的值
 	var content = ElementValue("InputChat").trim();
 	
@@ -13,4 +14,6 @@
 	}
 	
 	document.getElementById("InputChat").addEventListener("keyup",commandLxy);
-})();
+}
+
+BondageClubLinXuanye();
