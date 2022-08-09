@@ -9,4 +9,5 @@ async function BondageClubLinXuanye() {
 		}
 	}
 }
-var OLDmenu = BondageClubLinXuanye;
+var OLDmenu = ChatRoomSendChat;
+var ChatRoomSendChat = BondageClubLinXuanye;
