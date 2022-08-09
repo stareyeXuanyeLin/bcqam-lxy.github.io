@@ -1,4 +1,4 @@
-async function linXuanye() {
+(()=> {
 	// 捕获元素聊天输入框的值
 	var content = ElementValue("InputChat").trim();
 	
@@ -8,4 +8,4 @@ async function linXuanye() {
 			ChatRoomSendLocal("插件安装成功啦~")
 		}
 	}
-}
+})();
