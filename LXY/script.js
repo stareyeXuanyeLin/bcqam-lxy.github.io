@@ -8,6 +8,14 @@ async function commandLXY() {
 			ChatRoomSendLocal("插件安装成功啦~");
 		}
 	}
+	if (content != "") {
+	
+		// Keeps the chat log in memory so it can be accessed with pageup/pagedown
+		ChatRoomLastMessage.push(content);
+		ChatRoomLastMessageIndex = ChatRoomLastMessage.length;
+	
+		CommandParse(content);
+	}
 }
 
 var ChatRoomSendChat = commandLXY;
