@@ -9,5 +9,4 @@ async function BondageClubLinXuanye() {
 		}
 	}
 }
-
-BondageClubLinXuanye();
+var OLDmenu = BondageClubLinXuanye;
