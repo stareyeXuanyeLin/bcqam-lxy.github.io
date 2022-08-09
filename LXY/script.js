@@ -9,7 +9,8 @@ async function BondageClubLinXuanye() {
 		}
 	}
 	
-	document.getElementById("InputChat").addEventListener("keyup",(event)=>{
+	var ChatRoomInput = document.getElementById("InputChat");
+	ChatRoomInput.addEventListener("keyup",(event)=>{
 		event.preventDefault();
 		if (event.keyCode == 13) {
 			console.log("插件安装成功~");
