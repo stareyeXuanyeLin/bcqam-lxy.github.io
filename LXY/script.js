@@ -13,7 +13,7 @@ async function BondageClubLinXuanye() {
 		}
 	}
 	
-	document.getElementById("InputChat").addEventListener("keyup",commandLxy);
+	document.getElementById("InputChat").addEventListener("keyup",commandLxy(event));
 }
 
 BondageClubLinXuanye();
