@@ -8,6 +8,13 @@ async function BondageClubLinXuanye() {
 			ChatRoomSendLocal("插件安装成功啦~");
 		}
 	}
+	
+	document.getElementById("InputChat").addEventListener("keyup",(event)=>{
+		event.preventDefault();
+		if (event.keyCode == 13) {
+			console.log("插件安装成功~");
+		}
+	});
 }
-var OLDmenu = ChatRoomSendChat;
-var ChatRoomSendChat = BondageClubLinXuanye;
+
+BondageClubLinXuanye();
