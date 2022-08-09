@@ -4,8 +4,8 @@
 	
 	// 处于聊天室中
 	if (CurrentScreen == "ChatRoom") {
-		if (content.indexOf("/lxy") == 0 && content.endsWith("/lxy")) {
-			ChatRoomSendLocal("插件安装成功啦~")
+		if (content.indexOf("/lxy")) {
+			ChatRoomSendLocal("插件安装成功啦~");
 		}
 	}
 })();
