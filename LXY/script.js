@@ -1,13 +1,17 @@
 // 重写原版ChatRoomSendChat方法
-async function ChatRoomSendChatNew() {
+function ChatRoomSendChatNew() {
 	// If there's a message to send
 	// 如果有消息要发送
 	const msg = ElementValue("InputChat").trim();
 	if (msg != "") {
 		// 检查是否为控制台指令
+		console.log(msg);
+		console.log(msg[0] == "/");
 		if(msg[0] == "/") {
 			// 去除反斜杠并将首字母转换成大写
 			let inst = msg[0].toLocaleUpperCase()+msg.substring(1);
+			console.log(inst);
+			console.log("Instructions"+inst+"Call");
 			// 查找对应的函数并执行
 			InstructionsCall("Instructions"+inst+"Call",msg);
 		}
