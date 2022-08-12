@@ -1,91 +1,101 @@
-// 房间背景通用路径
-const roomBackgroundRoute = [
-	"Platform/Background/Castle/",
-	"Platform/Background/Castle/Orig/",
-	"Platform/Background/Forest/",
-	"Platform/Background/Forest/Orig/",
-	"Platform/Background/College/",
-	"PlatformDialog/Background/",
-];
-// 房间背景名字
-const roomBackgroundName = [
-	`${roomBackgroundRoute[0]}Balcony`,
-	`${roomBackgroundRoute[5]}Balcony`,
-	`${roomBackgroundRoute[0]}Ballroom`,
-	`${roomBackgroundRoute[1]}BathroomOlivia`,
-	`${roomBackgroundRoute[0]}BathroomOlivia`,
-	`${roomBackgroundRoute[5]}BathroomOlivia`,
-	`${roomBackgroundRoute[0]}BedroomDungeon`,
-	`${roomBackgroundRoute[0]}BedroomEdward`,
-	`${roomBackgroundRoute[0]}BedroomIsabella`,
-	`${roomBackgroundRoute[5]}BedroomIsabella`,
-	`${roomBackgroundRoute[0]}BedroomMelody`,
-	`${roomBackgroundRoute[0]}BedroomOlivia`,
-	`${roomBackgroundRoute[5]}BedroomOlivia`,
-	`${roomBackgroundRoute[5]}BedroomOliviaDark`,
-	`${roomBackgroundRoute[5]}Black`,
-	`${roomBackgroundRoute[3]}CastleEntrance`,
-	`${roomBackgroundRoute[5]}CastleHall`,
-	`${roomBackgroundRoute[2]}CastleWall`,
-	`${roomBackgroundRoute[3]}ClearPath`,
-	`${roomBackgroundRoute[4]}CollegeArt1`,
-	`${roomBackgroundRoute[4]}CollegeClass1`,
-	`${roomBackgroundRoute[4]}CollegeHall1`,
-	`${roomBackgroundRoute[0]}CountessHall`,
-	`${roomBackgroundRoute[5]}CountessHall`,
-	`${roomBackgroundRoute[0]}CountessHallDeadEnd`,
-	`${roomBackgroundRoute[0]}Dungeon1C`,
-	`${roomBackgroundRoute[0]}Dungeon1W`,
-	`${roomBackgroundRoute[0]}DungeonCell`,
-	`${roomBackgroundRoute[5]}DungeonCell`,
-	`${roomBackgroundRoute[0]}DungeonStorage`,
-	`${roomBackgroundRoute[5]}DungeonStorage`,
-	`${roomBackgroundRoute[5]}DungeonStorageDark`,
-	`${roomBackgroundRoute[2]}CabinInterior`,
-	`${roomBackgroundRoute[2]}CabinPath`,
-	`${roomBackgroundRoute[5]}ForestCabin`,
-	`${roomBackgroundRoute[3]}WoodCabin`,
-	`${roomBackgroundRoute[3]}GreenPlain`,
-	`${roomBackgroundRoute[0]}Hall1C`,
-	`${roomBackgroundRoute[0]}Hall1W`,
-	`${roomBackgroundRoute[0]}Hall2C`,
-	`${roomBackgroundRoute[0]}Hall3C`,
-	`${roomBackgroundRoute[0]}Hall3Cv2`,
-	`${roomBackgroundRoute[0]}Hall3E`,
-	`${roomBackgroundRoute[0]}Hall3W`,
-	`${roomBackgroundRoute[0]}Hall4C`,
-	`${roomBackgroundRoute[0]}Hall4E`,
-	`${roomBackgroundRoute[0]}Hall4W1`,
-	`${roomBackgroundRoute[0]}Hall4W2`,
-	`${roomBackgroundRoute[5]}MaidBed`,
-	`${roomBackgroundRoute[3]}MountainPath`,
-	`${roomBackgroundRoute[0]}Terrace`,
-	`${roomBackgroundRoute[5]}Terrace`,
-	`${roomBackgroundRoute[3]}VulturePlain`,
-	`${roomBackgroundRoute[0]}WineCellar`,
-	`${roomBackgroundRoute[5]}WineCellar`,
-];
-
-// QAM中抄来的，修改房间背景会用到，为什么这么写尚不清楚
-function updateBackground() {
-	var UpdatedRoom = {
-		Name: ChatRoomData.Name,
-		Description: ChatRoomData.Description,
-		Language: ChatRoomData.Language,
-		Background: ChatCreateBackgroundSelect,
-		Limit: "" + ChatRoomData.Limit,
-		Admin: ChatRoomData.Admin,
-		Ban: ChatRoomData.Ban,
-		BlockCategory: ChatRoomData.BlockCategory,
-		Game: ChatRoomData.Game,
-		Private: ChatRoomData.Private,
-		Locked: ChatRoomData.Locked,
+class ChatRoomNew {
+	roomBackRoute = [
+		"Platform/Background/Castle/",
+		"Platform/Background/Castle/Orig/",
+		"Platform/Background/Forest/",
+		"Platform/Background/Forest/Orig/",
+		"Platform/Background/College/",
+		"PlatformDialog/Background/",
+	];
+	roomBackName = [
+		"$0Balcony",
+		"$5Balcony",
+		"$0Ballroom",
+		"$1BathroomOlivia",
+		"$0BathroomOlivia",
+		"$5BathroomOlivia",
+		"$0BedroomDungeon",
+		"$0BedroomEdward",
+		"$0BedroomIsabella",
+		"$5BedroomIsabella",
+		"$0BedroomMelody",
+		"$0BedroomOlivia",
+		"$5BedroomOlivia",
+		"$5BedroomOliviaDark",
+		"$5Black",
+		"$3CastleEntrance",
+		"$5CastleHall",
+		"$2CastleWall",
+		"$3ClearPath",
+		"$4CollegeArt1",
+		"$4CollegeClass1",
+		"$4CollegeHall1",
+		"$0CountessHall",
+		"$5CountessHall",
+		"$0CountessHallDeadEnd",
+		"$0Dungeon1C",
+		"$0Dungeon1W",
+		"$0DungeonCell",
+		"$5DungeonCell",
+		"$0DungeonStorage",
+		"$5DungeonStorage",
+		"$5DungeonStorageDark",
+		"$2CabinInterior",
+		"$2CabinPath",
+		"$5ForestCabin",
+		"$3WoodCabin",
+		"$3GreenPlain",
+		"$0Hall1C",
+		"$0Hall1W",
+		"$0Hall2C",
+		"$0Hall3C",
+		"$0Hall3Cv2",
+		"$0Hall3E",
+		"$0Hall3W",
+		"$0Hall4C",
+		"$0Hall4E",
+		"$0Hall4W1",
+		"$0Hall4W2",
+		"$5MaidBed",
+		"$3MountainPath",
+		"$0Terrace",
+		"$5Terrace",
+		"$3VulturePlain",
+		"$0WineCellar",
+		"$5WineCellar",
+	];
+	constructor(ChatRoomData, ChatCreateBackgroundSelect) {
+		this.UpdatedRoom = {
+			Name: ChatRoomData.Name,
+			Description: ChatRoomData.Description,
+			Language: ChatRoomData.Language,
+			Background: ChatCreateBackgroundSelect,
+			Limit: "" + ChatRoomData.Limit,
+			Admin: ChatRoomData.Admin,
+			Ban: ChatRoomData.Ban,
+			BlockCategory: ChatRoomData.BlockCategory,
+			Game: ChatRoomData.Game,
+			Private: ChatRoomData.Private,
+			Locked: ChatRoomData.Locked,
+		};
 	};
-	ServerSend("ChatRoomAdmin", {
-		MemberNumber: Player.ID,
-		Room: UpdatedRoom,
-		Action: "Update",
-	});
+	// 根据索引获取聊天室背景名字
+	getRoomBackNameByIndex(index) {
+		let name = this.roomBackName[index];
+		return "../Screens/Room/"+name.replace(name[0]+name[1],roomBackRoute[Number(name[1])]);
+	}
+	// 设置聊天室创建背景
+	setBackground(ChatCreateBackgroundSelect) {
+		this.UpdatedRoom.Background = ChatCreateBackgroundSelect;
+	}
+	// 将数据更新至服务器
+	toupServerSend(playerID) {
+		ServerSend("ChatRoomAdmin", {
+			MemberNumber: playerID,
+			Room: this.UpdatedRoom,
+			Action: "Update",
+		});
+	}
 }
 
 // 重写原版ChatRoomSendChat方法
@@ -134,8 +144,8 @@ function InstructionsCall(funName, ...val) {
 function InstructionsLxyCall() {
 	ChatRoomSendLocal("插件安装成功啦~欢迎使用小夜的自定义插件，目前还在施工中呢~");
 }
-// QAM插件指令
-// 房间背景替换指令
+
+// QAM-房间背景替换指令
 function InstructionsBg2Call(bgName) {
 	if (bgName == 0) {
 		ChatRoomSendLocal(
@@ -155,11 +165,15 @@ function InstructionsBg2Call(bgName) {
 			"53秃鹫平原-54，55酒窖"
 		);
 	} else {
-		if (bgName - 1 < 0 || bgName > roomBackgroundName.length) {
+		if (bgName - 1 < 0 || bgName > chatRoomNew.roomBackName.length) {
 			ChatRoomSendLocal("错误，该编号的房间背景不存在！");
 		} else {
-			ChatCreateBackgroundSelect = `../Screens/Room/${roomBackgroundName[bgName-1]}`;
-			updateBackground();
+			// 修改本地房间背景路径
+			// var ChatCreateBackgroundSelect = `../Screens/Room/${roomBackgroundName[bgName-1]}`;
+			chatRoomNew.setBackground(bgName);
+			// 更新至服务器中
+			// updateBackground();
+			chatRoomNew.toupServerSend(Player.ID);
 		}
 	}
 }
@@ -168,3 +182,5 @@ function InstructionsBg2Call(bgName) {
 var ChatRoomSendChatUsed = ChatRoomSendChat;
 // 重写原版方法
 var ChatRoomSendChat = ChatRoomSendChatNew;
+// 声明
+var chatRoomNew = new ChatRoomNew(ChatRoomData,ChatCreateBackgroundSelect);
