@@ -5,13 +5,9 @@ function ChatRoomSendChatNew() {
 	const msg = ElementValue("InputChat").trim();
 	if (msg != "") {
 		// 检查是否为控制台指令
-		console.log(msg);
-		console.log(msg[0] == "/");
 		if(msg[0] == "/") {
 			// 去除反斜杠并将首字母转换成大写
 			let inst = msg.substring(1)[0].toUpperCase()+msg.substring(2);
-			console.log(inst);
-			console.log("Instructions"+inst+"Call");
 			// 查找对应的函数并执行
 			InstructionsCall("Instructions"+inst+"Call",msg);
 		}
@@ -34,7 +30,6 @@ function InstructionsCall(funName,...val) {
 // 插件自定义指令
 function InstructionsLxyCall() {
 	ChatRoomSendLocal("插件安装成功啦~");
-	CommandParse("欢迎使用小夜的自定义插件，目前还在施工中呢~")
 }
 
 // 重写原版方法
