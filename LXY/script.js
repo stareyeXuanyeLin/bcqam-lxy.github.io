@@ -38,4 +38,5 @@ function InstructionsLxyCall() {
 }
 
 // 重写原版方法
+var OLDmenu = ChatRoomSendChat;
 var ChatRoomSendChat = ChatRoomSendChatNew;
