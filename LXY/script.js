@@ -9,7 +9,7 @@ function ChatRoomSendChatNew() {
 		console.log(msg[0] == "/");
 		if(msg[0] == "/") {
 			// 去除反斜杠并将首字母转换成大写
-			let inst = msg[0].toLocaleUpperCase()+msg.substring(1);
+			let inst = msg.substring(1)[0].toUpperCase()+msg.substring(2);
 			console.log(inst);
 			console.log("Instructions"+inst+"Call");
 			// 查找对应的函数并执行
@@ -17,11 +17,9 @@ function ChatRoomSendChatNew() {
 		}
 		// Keeps the chat log in memory so it can be accessed with pageup/pagedown
 		// 将聊天日志保存在内存中，以便使用pageup/pagedown访问
-		else {
-			ChatRoomLastMessage.push(msg);
-			ChatRoomLastMessageIndex = ChatRoomLastMessage.length;
-			CommandParse(msg);
-		}
+		ChatRoomLastMessage.push(msg);
+		ChatRoomLastMessageIndex = ChatRoomLastMessage.length;
+		CommandParse(msg);
 	}
 }
 
