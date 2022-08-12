@@ -66,6 +66,28 @@ const roomBackgroundName = [
 	`${roomBackgroundRoute[5]}WineCellar`,
 ];
 
+// QAM中抄来的，修改房间背景会用到，为什么这么写尚不清楚
+function updateBackground() {
+	var UpdatedRoom = {
+		Name: ChatRoomData.Name,
+		Description: ChatRoomData.Description,
+		Language: ChatRoomData.Language,
+		Background: ChatCreateBackgroundSelect,
+		Limit: "" + ChatRoomData.Limit,
+		Admin: ChatRoomData.Admin,
+		Ban: ChatRoomData.Ban,
+		BlockCategory: ChatRoomData.BlockCategory,
+		Game: ChatRoomData.Game,
+		Private: ChatRoomData.Private,
+		Locked: ChatRoomData.Locked,
+	};
+	ServerSend("ChatRoomAdmin", {
+		MemberNumber: Player.ID,
+		Room: UpdatedRoom,
+		Action: "Update",
+	});
+}
+
 // 重写原版ChatRoomSendChat方法
 function ChatRoomSendChatNew() {
 	// 获取输入栏文本
