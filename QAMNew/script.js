@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name Quick-AccessMenu2.1
+// @name Quick-AccessMenu2.1 - lxy
 // @namespace https://www.bondageprojects.com/
 // @version 1.5.0.
 // @description Everything you'll ever need for BC
@@ -87,20 +87,20 @@ const roomBackName = [
 // 帮助指令文本
 const helpText = {
 	Help: "<b>快速访问菜单2</b>: QAM帮助按类别组织。使用 <b>/help</b> (类别)。类别列表：\n" +
-		"<b>束缚</b> = 与束缚相关的命令。\n" +
-		"<b>角色</b> = 与角色相关的命令。\n" +
-		"<b>聊天</b> = 聊天室中具有额外功能的命令。\n" +
-		"<b>衣服</b> = 与衣服相关的命令。\n" +
-		"<b>逃脱</b> = 与逃脱相关的命令。\n" +
-		"<b>乐趣</b> = 与乐趣、痛苦和快乐相关的命令。\n" +
-		"<b>命令</b> = 特殊命令。\n" +
-		"<b>谈话</b> = 与谈话相关的命令。\n" +
-		"<b>视觉</b> = 与动画和背景相关的命令。\n" +
-		"<b>区域</b> = 与游戏区域相关的命令。\n" +
+		"<b>bondage</b> = 与束缚相关的命令。\n" +
+		"<b>character</b> = 与角色相关的命令。\n" +
+		"<b>chat</b> = 聊天室中具有额外功能的命令。\n" +
+		"<b>clothing</b> = 与衣服相关的命令。\n" +
+		"<b>escape</b> = 与逃脱相关的命令。\n" +
+		"<b>fun</b> = 与乐趣、痛苦和快乐相关的命令。\n" +
+		"<b>misc</b> = 特殊命令。\n" +
+		"<b>talking</b> = 与谈话相关的命令。\n" +
+		"<b>visual</b> = 与动画和背景相关的命令。\n" +
+		"<b>zones</b> = 与游戏区域相关的命令。\n" +
 		" \n" +
 		"使用<b>/help new</b>获取有关当前QAM版本更改的信息。\n" +
 		" \n" +
-		"指定目标需要几个命令。它可以是真实姓名或会员号码。",
+		"指定目标(target)需要几个命令。它可以是真实姓名或会员号码。",
 	bondage: "<b>快速访问菜单2</b>：束缚命令：\n" +
 		"<b>/lock</b> = 在所有可锁定项上添加锁。有关详细信息，请使用/help lock。\n" +
 		"<b>/pet</b> (target) = 目标成为完全约束的宠物女孩。\n" +
@@ -250,7 +250,7 @@ function ChatRoomSendChatNew() {
 		// 去除反斜杠并将首字母转换成大写
 		let inst = msg.substring(1).replace(msg[1], msg[1].toUpperCase());
 		// 保留头命令
-		let instHead = inst.substring(0,inst.indexOf(" "));
+		let instHead = inst.indexOf(" ") != -1?inst.substring(0,inst.indexOf(" ")):inst;
 		// 创建变量传入
 		let funVal = inst.substring(inst.indexOf(" ")+1).trim().split(" ");
 		// 清除所有空格并将之后的字母转换成大写，如果最后一个空格后是数字则截取作为变量传入
@@ -269,9 +269,10 @@ function ChatRoomSendChatNew() {
 		}
 		// 查找对应的函数并执行
 		InstructionsCall(instHead, funVal);
+	} else {
+		// 调用旧版方法
+		ChatRoomSendChatUsed();
 	}
-	// 调用旧版方法
-	ChatRoomSendChatUsed();
 }
 // 指令调用方法
 function InstructionsCall(fun, ...val) {
