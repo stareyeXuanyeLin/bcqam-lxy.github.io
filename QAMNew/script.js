@@ -253,20 +253,6 @@ function ChatRoomSendChatNew() {
 		let instHead = inst.indexOf(" ") != -1?inst.substring(0,inst.indexOf(" ")):inst;
 		// 创建变量传入
 		let funVal = inst.substring(inst.indexOf(" ")+1).trim().split(" ");
-		// 清除所有空格并将之后的字母转换成大写，如果最后一个空格后是数字则截取作为变量传入
-		while (inst.indexOf(" ") != -1) {
-			// 如果空格之后的字符不是数字
-			if (isNaN(inst.substring(inst.indexOf(" ") + 1))) {
-				// 获取空格位置索引
-				let i = inst.indexOf(" ");
-				// 删除空格并将之后的字母替换成大写
-				inst = inst.replace(inst[i] + inst[i + 1], inst[i + 1].toUpperCase());
-			}
-			// 如果是纯数字则将其截掉
-			if (!isNaN(inst.substring(inst.indexOf(" ") + 1))) {
-				inst = inst.replace(inst.substring(inst.indexOf(" ")), "");
-			}
-		}
 		// 查找对应的函数并执行
 		InstructionsCall(instHead, funVal);
 	} else {
