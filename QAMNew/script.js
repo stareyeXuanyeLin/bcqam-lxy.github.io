@@ -14,6 +14,328 @@
 // @run-at document-end
 // ==/UserScript==
 (typeof OLDmenu !== "undefined") && (ChatRoomSendChat = OLDmenu); //reset
+
+/* 小夜添加的内容从下面开始 */
+
+// 房间背景通用路径
+const roomBackRoute = [
+	"Platform/Background/Castle/",
+	"Platform/Background/Castle/Orig/",
+	"Platform/Background/Forest/",
+	"Platform/Background/Forest/Orig/",
+	"Platform/Background/College/",
+	"PlatformDialog/Background/",
+];
+// 房间背景名字
+const roomBackName = [
+	"$0Balcony",
+	"$5Balcony",
+	"$0Ballroom",
+	"$1BathroomOlivia",
+	"$0BathroomOlivia",
+	"$5BathroomOlivia",
+	"$0BedroomDungeon",
+	"$0BedroomEdward",
+	"$0BedroomIsabella",
+	"$5BedroomIsabella",
+	"$0BedroomMelody",
+	"$0BedroomOlivia",
+	"$5BedroomOlivia",
+	"$5BedroomOliviaDark",
+	"$5Black",
+	"$3CastleEntrance",
+	"$5CastleHall",
+	"$2CastleWall",
+	"$3ClearPath",
+	"$4CollegeArt1",
+	"$4CollegeClass1",
+	"$4CollegeHall1",
+	"$0CountessHall",
+	"$5CountessHall",
+	"$0CountessHallDeadEnd",
+	"$0Dungeon1C",
+	"$0Dungeon1W",
+	"$0DungeonCell",
+	"$5DungeonCell",
+	"$0DungeonStorage",
+	"$5DungeonStorage",
+	"$5DungeonStorageDark",
+	"$2CabinInterior",
+	"$2CabinPath",
+	"$5ForestCabin",
+	"$3WoodCabin",
+	"$3GreenPlain",
+	"$0Hall1C",
+	"$0Hall1W",
+	"$0Hall2C",
+	"$0Hall3C",
+	"$0Hall3Cv2",
+	"$0Hall3E",
+	"$0Hall3W",
+	"$0Hall4C",
+	"$0Hall4E",
+	"$0Hall4W1",
+	"$0Hall4W2",
+	"$5MaidBed",
+	"$3MountainPath",
+	"$0Terrace",
+	"$5Terrace",
+	"$3VulturePlain",
+	"$0WineCellar",
+	"$5WineCellar",
+];
+// 帮助指令文本
+const helpText = {
+	Help: "<b>快速访问菜单2</b>: QAM帮助按类别组织。使用 <b>/help</b> (类别)。类别列表：\n" +
+		"<b>束缚</b> = 与束缚相关的命令。\n" +
+		"<b>角色</b> = 与角色相关的命令。\n" +
+		"<b>聊天</b> = 聊天室中具有额外功能的命令。\n" +
+		"<b>衣服</b> = 与衣服相关的命令。\n" +
+		"<b>逃脱</b> = 与逃脱相关的命令。\n" +
+		"<b>乐趣</b> = 与乐趣、痛苦和快乐相关的命令。\n" +
+		"<b>命令</b> = 特殊命令。\n" +
+		"<b>谈话</b> = 与谈话相关的命令。\n" +
+		"<b>视觉</b> = 与动画和背景相关的命令。\n" +
+		"<b>区域</b> = 与游戏区域相关的命令。\n" +
+		" \n" +
+		"使用<b>/help new</b>获取有关当前QAM版本更改的信息。\n" +
+		" \n" +
+		"指定目标需要几个命令。它可以是真实姓名或会员号码。",
+	bondage: "<b>快速访问菜单2</b>：束缚命令：\n" +
+		"<b>/lock</b> = 在所有可锁定项上添加锁。有关详细信息，请使用/help lock。\n" +
+		"<b>/pet</b> (target) = 目标成为完全约束的宠物女孩。\n" +
+		"<b>/randomize</b> (target) = 裸体+内衣+衣服+拘束命令。\n" +
+		"<b>/restrain</b> (target) = 添加随机拘束\n" +
+		"<b>/solidity</b> (value) = 更改大多数当前绑定的坚固性。值必须介于1和99之间。使用过高的值将使得逃脱变得不可能！",
+	character: "<b>快速访问菜单2</b>: 字符命令 - * = 使用时的详细信息\n" +
+		"<b>/becomeownlover</b> = 成为你自己的爱人。\n" +
+		"<b>/becomeownowner</b> = 成为你自己的主人。\n" +
+		"<b>/difficulty</b> (number) = 改变游戏难度。0角色扮演-1常规-2硬核-3极端\n" +
+		"<b>/giveeverything</b> = 获取所有物品\n" +
+		"<b>/maxstatistics</b> = 提供max统计信息。\n" +
+		"<b>/money</b> (value) = 修改金钱。\n" +
+		"<b>/name</b> (newnamehere) = 修改临时昵称。\n" +
+		"<b>/npcpunish</b> = 启用/禁用NPC惩罚。\n" +
+		"<b>/permission</b> (number) = 更改您的项目权限*\n" +
+		"<b>/reputation</b> (reputation) (level) = 改变名誉。*\n" +
+		"<b>/resetinventory</b> = 删除你的库存。它将首先发出警告。\n" +
+		"<b>/roleplay</b> (rolehere) = 开始一个角色*\n" +
+		"<b>/rolequit</b> (role or clubarea here) = 不再扮演角色*\n" +
+		"<b>/savename</b> = 确定临时昵称。\n" +
+		"<b>/skill</b> (skill) (level) = 改变技能等级。 *\n" +
+		"<b>/title</b> (newtitlehere) = 获取头衔。*",
+	chat: "<b>快速访问菜单2</b>: 聊天命令:\n" +
+		"<b>/autokick</b> = toggles on auto kick for 0 day old accounts.\n" +
+		"<b>/erase</b> = erases chat.\n" +
+		"<b>/font</b> (newfont) (size) = changes font in BC. Using will give more info.\n" +
+		"<b>/frlist</b> = gives access to friendlist with clickable links to other rooms during 15 seconds.\n" +
+		"<b>/hiddenmessages</b> = toggles on show hidden messages made by game.\n" +
+		"<b>/profile</b> (target) = gives direct access to the profile description of any player in the chat room.\n" +
+		"<b>/search</b> (areaname) = opens room search, area is: club or asylum.\n" +
+		"<b>/theme</b> (number) = changes chat color theme after automatic relog. Number must be between 0 and 3.",
+	clothing: "<b>Quick-AccessMenu2</b>: Clothing commands:\n" +
+		"<b>/clothes</b> (target) = changes clothes.\n" +
+		"<b>/diaper</b> (actionhere) (targetname or setvalue) = plays with diapers (ABDL game). Using will give more info.\n" +
+		"<b>/naked</b> (target) = removes clothes.\n" +
+		"<b>/outfit</b> = restores/saves/loads outfit. Using will give more info.\n" +
+		"<b>/underwear</b> (target) = changes underwear.\n" +
+		"<b>/wardrobe</b> (target) = opens target wardrobe.",
+	escape: "<b>Quick-AccessMenu2</b>: Escape commands:\n" +
+		"<b>/boost</b> = boosts skills, similar to maid quarters drink.\n" +
+		"<b>/collarremove</b> = removes slave/owner collar. Can also be: /removecollar.\n" +
+		"<b>/frlist</b> = gives access to friendlist with clickable links to other rooms during 15 seconds.\n" +
+		"<b>/leave</b> = leaves room, even if prevented.\n" +
+		"<b>/release</b> (target) = removes all bindings.\n" +
+		"<b>/resetdifficulty</b> = resets difficulty, thereby quitting it. Will warn first.\n" +
+		"<b>/safewordspecific</b> = removes specific item. More info when used.\n" +
+		"<b>/solidity</b> (value) = changes the solidity of most current bindings. Use low values to escape! Value 1 allows to escape the futuristic crate.\n" +
+		"<b>/totalrelease</b> (target) = removes all bindings, collar, harness, chastity, toys.\n" +
+		"<b>/unlock</b> (target) (locktype) = removes all locks or only a specified type of lock. More info with /help unl.",
+	fun: "<b>Quick-AccessMenu2</b>: Fun commands:\n" +
+		"<b>/cum</b> = causes an orgasm.\n" +
+		"<b>/moaner</b> = moans when horny and stimulated. Using will give more info.\n" +
+		"<b>/sleep</b> (target) = uses the sleeping pill on yourself or another player.\n" +
+		"<b>/superdice</b> (sides)  = rolls a superdice. Sides can be between 2 and 999999999.",
+	lock: "<b>Quick-AccessMenu2</b>: The lock command has several syntaxes:\n" +
+		"/lock (target) (locktype) for locks 1 to 8\n" +
+		"/lock (target) (locktype) (r) for lock 9\n" +
+		"/lock (target) (locktype) (code) for lock 10\n" +
+		"/lock (target) (locktype) (password) (r) for locks 11 and 12\n" +
+		"/lock (target) (locktype) (minutes) (h) (i) (r) for locks 13 to 15\n" +
+		"/lock (target) (locktype) (password) (minutes) (h) (i) (r) for lock 16\n" +
+		" \n" +
+		"The lock types:\n" +
+		"1 Metal - 2 Exclusive - 3 Intricate - 4 High Security\n" +
+		"5 Pandora - 6 Mistress - 7 Lover - 8 Owner\n" +
+		"9 Five Minutes - 10 Combination - 11 Safeword\n" +
+		"12 Password - 13 Mistress Timer - 14 Lover Timer\n" +
+		"15 Owner Timer - 16 Timer Password\n" +
+		"Use <b>/help lpar</b> for info about other parameters",
+	lpar: "<b>Quick-AccessMenu2</b>: Special parameters of lock command:\n" +
+		"code must be between 0 and 9999.\n" +
+		"password is limited to 8 characters.\n" +
+		"maximum time = 240 minutes for locks 13 and 16,\n" +
+		"10080 minutes for locks 14 and 15.\n" +
+		" \n" +
+		"Optional parameters:\n" +
+		"h to hide the timer,\n" +
+		"i to enable time input from other players,\n" +
+		"r for item removal when correct password entered\n" +
+		"or lock timer runs out.\n" +
+		" \n" +
+		"Tip: replace h and/or i by another character when you need to skip them.",
+	misc: "<b>Quick-AccessMenu2</b>: Misc commands:\n" +
+		"<b>/clubhelp</b> = displays the standard commands of the game (and optionaly the BCE commands)\n" +
+		"<b>/help</b> (category) = displays the QAM commands. Available categories: bondage, character, clothing, escape, fun, misc, pleasure, talking, visual, zones.\n" +
+		"<b>/login</b> (accountname) (password) = logs in a new account.\n" +
+		"<b>/relog</b> = relogs.\n" +
+		"<b>/unrestrict</b> =  removes all restrictions from game. Can use maid drink tray/other stuff. Using will give more info. Submissives should use /unrestrict soft.",
+	new: "<b>Quick-AccessMenu2</b>: Main changes in v.1.5.0:\n" +
+		"- New commands: hear, s1, s2, s3, s4, see, sleep, stutter, talk.\n" +
+		"- Renamed the old gagtalk command as gagcode and improved it by using lillyBC gagspeak function.\n" +
+		"- Merged the gaglight and gagheavy commands into the new version of gagtalk command.\n" +
+		"- Improved the outfit command with the awsave and awload options (thanks to huzpsb).\n" +
+		"- Explore the help to get more info!",
+	talking: "<b>Quick-AccessMenu2</b>: Talking commands - * = more info when using\n" +
+		"<b>/action</b> (stuffhere) = inserts an action. Can also: /a.\n" +
+		"<b>/babytalk</b> (stuffhere) = speaks once as a baby. Can also: /b.\n" +
+		"<b>/gagcode</b> = toggle to decode/not decode gagged people talking. Also works against deafness.\n" +
+		"<b>/gagtalk</b> (talkmode) (stuffhere) = speaks once in specified gag talk. *\n" +
+		"<b>/hear</b> (hearmode) = forces a specific hearing mode. *\n" +
+		"<b>/moaner</b> = moans when horny and stimulated. *\n" +
+		"<b>/s1</b> (stuffhere) = speaks once in light stuttering mode.\n" +
+		"<b>/s2</b> (stuffhere) = speaks once in normal stuttering mode.\n" +
+		"<b>/s3</b> (stuffhere) = speaks once in heavy stuttering mode.\n" +
+		"<b>/s4</b> (stuffhere) = speaks once in total stuttering mode.\n" +
+		"<b>/stutter</b> (stuttermode) = forces a specific stuttering mode. *\n" +
+		"<b>/talk</b> (talkmode) = changes your talk mode. *\n" +
+		"<b>/whisper</b> (target) = sets whisper target.",
+	unl: "<b>Quick-AccessMenu2</b>: The unlock command:\n" +
+		"<b>/unlock</b> (target) (locktype).\n" +
+		"All locks of any type will be removed if you don't specify the lock type.\n" +
+		" \n" +
+		"The lock types:\n" +
+		"1 Metal - 2 Exclusive - 3 Intricate - 4 High Security\n" +
+		"5 Pandora - 6 Mistress - 7 Lover - 8 Owner\n" +
+		"9 Five Minutes - 10 Combination - 11 Safeword\n" +
+		"12 Password - 13 Mistress Timer - 14 Lover Timer\n" +
+		"15 Owner Timer - 16 Timer Password",
+	visual: "<b>Quick-AccessMenu2</b>: Visual commands:\n" +
+		"<b>/anim2</b> (animhere) = changes your facial expression. Using will give more info.\n" +
+		"<b>/bg1</b> = adds hidden backgrounds to the admin selection screen. Tip for BCX users: activate BCX before login.\n" +
+		"<b>/bg2</b> (number) = uses a hidden platform background. Number must be between 1 and 55. Use /bg2 or /bg2 0 to get the list.\n" +
+		"<b>/colorchanger</b> (animhere) = gets an animation with color change. Using will give more info.\n" +
+		"<b>/pose2</b> (posehere) (target) = changes the pose of any player. Using will give more info.\n" +
+		"<b>/see</b> (visionmode) (blurlevel) = forces a specific vision mode. Using will give more info.\n" +
+		"<b>/speak</b> = animates mouth when talking in chat. Can also: /mouth or /speech.",
+	zones: "<b>Quick-AccessMenu2</b>: Zones commands:\n" +
+		"<b>/asylum</b> (minutes) = enters asylum, bypasses requirements. Specify minutes if you are a patient.\n" +
+		"<b>/chess</b> (difficulty) = starts chess, must specify difficulty first (1 easy - 2 normal - 3 hard).\n" +
+		"<b>/college</b> = enters college, bypasses requirements.\n" +
+		"<b>/game</b> (minigamehere) = launches a minigame. Using will give more info.\n" +
+		"<b>/ggts</b> (minutes) (level) = enters ggts training in asylum for the specified time. Level must be between 1 and 6.\n" +
+		"<b>/keydeposit</b> (hours) = keeps your keys safe in the vault.\n" +
+		"<b>/kinkydungeon</b> = launches Kinky Dungeon. Options: devious to toggle deviouschallenge, cheat to start with cheats.\n" +
+		"<b>/patreoncheats</b> = changes settings of patreon cheats. All except college uniform, is auto toggled by default.\n" +
+		"<b>/prison</b> (minutes) = stays in Pandora prison. More than 60 minutes is possible.\n" +
+		"<b>/store</b> = leaves chatroom, goes to store. Shows hidden items.\n" +
+		"<b>/timercell</b> (minutes) = stays in the isolation cell. More than 60 minutes is possible. Tip: use bondage commands before!"
+}
+// 重写原版ChatRoomSendChat方法
+function ChatRoomSendChatNew() {
+	// 获取输入栏文本
+	const msg = ElementValue("InputChat").trim();
+	// 检查是否为控制台指令
+	if (msg[0] == "/") {
+		// 去除反斜杠并将首字母转换成大写
+		let inst = msg.substring(1).replace(msg[1], msg[1].toUpperCase());
+		// 保留头命令
+		let instHead = inst.substring(0,inst.indexOf(" "));
+		// 创建变量传入
+		let funVal = inst.substring(inst.indexOf(" ")+1).trim().split(" ");
+		// 清除所有空格并将之后的字母转换成大写，如果最后一个空格后是数字则截取作为变量传入
+		while (inst.indexOf(" ") != -1) {
+			// 如果空格之后的字符不是数字
+			if (isNaN(inst.substring(inst.indexOf(" ") + 1))) {
+				// 获取空格位置索引
+				let i = inst.indexOf(" ");
+				// 删除空格并将之后的字母替换成大写
+				inst = inst.replace(inst[i] + inst[i + 1], inst[i + 1].toUpperCase());
+			}
+			// 如果是纯数字则将其截掉
+			if (!isNaN(inst.substring(inst.indexOf(" ") + 1))) {
+				inst = inst.replace(inst.substring(inst.indexOf(" ")), "");
+			}
+		}
+		// 查找对应的函数并执行
+		InstructionsCall(instHead, funVal);
+	}
+	// 调用旧版方法
+	ChatRoomSendChatUsed();
+}
+// 指令调用方法
+function InstructionsCall(fun, ...val) {
+	let funName = fun;
+	let funVal = val;
+	// 如果指令头单词存在对应方法，则执行方法
+	// 否则拼接指令并将剩余的部分作为参数传入
+	if (typeof window["Instructions"+funName+"Call"] === "function") {
+		window["Instructions"+funName+"Call"](...funVal);
+	} else {
+		for(let i=0;i < val.length;i++) {
+			funName = funName+funVal[i].replace(funVal[i][0], funVal[i][0].toUpperCase());
+			funVal = val.splice(1,val.length);
+			if (typeof window["Instructions"+funName+"Call"] === "function") {
+				window["Instructions"+funName+"Call"](...funVal);
+				break;
+			}
+		}
+	}
+}
+// QAM-Help帮助指令
+function InstructionsHelpCall(text) {
+	ChatRoomSendLocal(helpText[text]);
+}
+// QAM-房间背景替换指令
+function InstructionsBg2Call(bgName) {
+	if (bgName == 0) {
+		ChatRoomSendLocal(
+			"<b>快速访问菜单2</b>：隐藏平台背景列表：\n" +
+			"1，2阳台-3宴会厅\n" +
+			"4到6浴室奥利维亚\n" +
+			"7卧室地牢-8卧室爱德华\n" +
+			"9，10卧室伊莎贝拉-11卧室旋律\n" +
+			"12至14卧室Olivia-15黑色\n" +
+			"16到18城堡-19畅通路径\n" +
+			"20至22学院-23至25伯爵夫人厅\n" +
+			"26、27地牢1-28、29地牢牢房\n" +
+			"30到32个地下城存储\n" +
+			"33至36森林小屋-37绿色平原\n" +
+			"38至48号厅（1至4）-49号女仆床\n" +
+			"50山路-51，52阶地\n" +
+			"53秃鹫平原-54，55酒窖"
+		);
+	} else {
+		if (bgName - 1 < 0 || bgName > roomBackName.length) {
+			ChatRoomSendLocal("错误，该编号的房间背景不存在！");
+		} else {
+			// 修改本地房间背景路径
+			let name = roomBackName[bgName - 1];
+			ChatCreateBackgroundSelect = "../Screens/Room/" + name.replace(name[0] + name[1], roomBackRoute[Number(name[1])]);
+			// 更新至服务器中
+			updateBackground();
+		}
+	}
+}
+// 另存旧版方法
+var ChatRoomSendChatUsed = ChatRoomSendChat;
+// 重写原版方法
+var ChatRoomSendChat = ChatRoomSendChatNew;
+
+console.log("小夜修改的内容加载完成，版本0.1.1");
+
+/* 小夜添加的内容到上面结束 */
+
 async function NEWmenu() {
 	var content = ElementValue("InputChat").trim();
 	//var tmpname = Player.Nickname;
@@ -21,208 +343,7 @@ async function NEWmenu() {
 	//chatcommand
 	if (CurrentScreen == "ChatRoom") {
 
-		if (content.indexOf("/help") == 0) {
-			if (content.endsWith("/help")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: QAM help is organized into categories. Use <b>/help</b> (category). List of categories:\n" +
-					"<b>bondage</b> = commands related to bondage.\n" +
-					"<b>character</b> = commands related to your character.\n" +
-					"<b>chat</b> = commands with extra features in chat room.\n" +
-					"<b>clothing</b> = commands related to the clothes.\n" +
-					"<b>escape</b> = commands related to escape.\n" +
-					"<b>fun</b> = commands related to fun, pain and pleasure.\n" +
-					"<b>misc</b> = special commands.\n" +
-					"<b>talking</b> = commands related to talking.\n" +
-					"<b>visual</b> = commands related to animations and background.\n" +
-					"<b>zones</b> = commands related to game zones.\n" +
-					" \n" +
-					"Use <b>/help new</b> to get info about changes in current QAM version.\n" +
-					" \n" +
-					"Several commands require to specify a target. It can be a real name or a member number."
-				);
-			} else if (content.includes("bondage")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: Bondage commands:\n" +
-					"<b>/lock</b> = adds locks on all lockable items. Use /help lock for more info.\n" +
-					"<b>/pet</b> (target) = becomes a fully restrained pet girl.\n" +
-					"<b>/randomize</b> (target) = naked + underwear + clothes + restrain commands.\n" +
-					"<b>/restrain</b> (target) = adds random restraints.\n" +
-					"<b>/solidity</b> (value) = changes the solidity of most current bindings. Value must be between 1 and 99. Use high values to make escape impossible!"
-				);
-			} else if (content.includes("character")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: Character commands - * = more info when using\n" +
-					"<b>/becomeownlover</b> = becomes your own lover.\n" +
-					"<b>/becomeownowner</b> = becomes your own owner.\n" +
-					"<b>/difficulty</b> (number) = changes game difficulty. 0 roleplay - 1 regular - 2 hardcore - 3 extreme\n" +
-					"<b>/giveeverything</b> = gives every item.\n" +
-					"<b>/maxstatistics</b> = gives max statistics.\n" +
-					"<b>/money</b> (value) = gives or takes money.\n" +
-					"<b>/name</b> (newnamehere) = temporary new nickname.\n" +
-					"<b>/npcpunish</b> = enables/disables NPC punishments.\n" +
-					"<b>/permission</b> (number) = changes your item permission *\n" +
-					"<b>/reputation</b> (reputation) (level) = changes a reputation. *\n" +
-					"<b>/resetinventory</b> = erases your inventory. Will warn first.\n" +
-					"<b>/roleplay</b> (rolehere) = starts a role. *\n" +
-					"<b>/rolequit</b> (role or clubarea here) = ceases to play a role. *\n" +
-					"<b>/savename</b> = definitive status to temporary nickname.\n" +
-					"<b>/skill</b> (skill) (level) = changes a skill. *\n" +
-					"<b>/title</b> (newtitlehere) = chooses a new title. *"
-				);
-			} else if (content.includes("chat")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: Chat commands:\n" +
-					"<b>/autokick</b> = toggles on auto kick for 0 day old accounts.\n" +
-					"<b>/erase</b> = erases chat.\n" +
-					"<b>/font</b> (newfont) (size) = changes font in BC. Using will give more info.\n" +
-					"<b>/frlist</b> = gives access to friendlist with clickable links to other rooms during 15 seconds.\n" +
-					"<b>/hiddenmessages</b> = toggles on show hidden messages made by game.\n" +
-					"<b>/profile</b> (target) = gives direct access to the profile description of any player in the chat room.\n" +
-					"<b>/search</b> (areaname) = opens room search, area is: club or asylum.\n" +
-					"<b>/theme</b> (number) = changes chat color theme after automatic relog. Number must be between 0 and 3."
-				);
-			} else if (content.includes("clothing")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: Clothing commands:\n" +
-					"<b>/clothes</b> (target) = changes clothes.\n" +
-					"<b>/diaper</b> (actionhere) (targetname or setvalue) = plays with diapers (ABDL game). Using will give more info.\n" +
-					"<b>/naked</b> (target) = removes clothes.\n" +
-					"<b>/outfit</b> = restores/saves/loads outfit. Using will give more info.\n" +
-					"<b>/underwear</b> (target) = changes underwear.\n" +
-					"<b>/wardrobe</b> (target) = opens target wardrobe."
-				);
-			} else if (content.includes("escape")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: Escape commands:\n" +
-					"<b>/boost</b> = boosts skills, similar to maid quarters drink.\n" +
-					"<b>/collarremove</b> = removes slave/owner collar. Can also be: /removecollar.\n" +
-					"<b>/frlist</b> = gives access to friendlist with clickable links to other rooms during 15 seconds.\n" +
-					"<b>/leave</b> = leaves room, even if prevented.\n" +
-					"<b>/release</b> (target) = removes all bindings.\n" +
-					"<b>/resetdifficulty</b> = resets difficulty, thereby quitting it. Will warn first.\n" +
-					"<b>/safewordspecific</b> = removes specific item. More info when used.\n" +
-					"<b>/solidity</b> (value) = changes the solidity of most current bindings. Use low values to escape! Value 1 allows to escape the futuristic crate.\n" +
-					"<b>/totalrelease</b> (target) = removes all bindings, collar, harness, chastity, toys.\n" +
-					"<b>/unlock</b> (target) (locktype) = removes all locks or only a specified type of lock. More info with /help unl."
-				);
-			} else if (content.includes("fun")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: Fun commands:\n" +
-					"<b>/cum</b> = causes an orgasm.\n" +
-					"<b>/moaner</b> = moans when horny and stimulated. Using will give more info.\n" +
-					"<b>/sleep</b> (target) = uses the sleeping pill on yourself or another player.\n" +
-					"<b>/superdice</b> (sides)  = rolls a superdice. Sides can be between 2 and 999999999."
-				);
-			} else if (content.includes("lock")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: The lock command has several syntaxes:\n" +
-					"/lock (target) (locktype) for locks 1 to 8\n" +
-					"/lock (target) (locktype) (r) for lock 9\n" +
-					"/lock (target) (locktype) (code) for lock 10\n" +
-					"/lock (target) (locktype) (password) (r) for locks 11 and 12\n" +
-					"/lock (target) (locktype) (minutes) (h) (i) (r) for locks 13 to 15\n" +
-					"/lock (target) (locktype) (password) (minutes) (h) (i) (r) for lock 16\n" +
-					" \n" +
-					"The lock types:\n" +
-					"1 Metal - 2 Exclusive - 3 Intricate - 4 High Security\n" +
-					"5 Pandora - 6 Mistress - 7 Lover - 8 Owner\n" +
-					"9 Five Minutes - 10 Combination - 11 Safeword\n" +
-					"12 Password - 13 Mistress Timer - 14 Lover Timer\n" +
-					"15 Owner Timer - 16 Timer Password\n" +
-					"Use <b>/help lpar</b> for info about other parameters"
-				);
-			} else if (content.includes("lpar")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: Special parameters of lock command:\n" +
-					"code must be between 0 and 9999.\n" +
-					"password is limited to 8 characters.\n" +
-					"maximum time = 240 minutes for locks 13 and 16,\n" +
-					"10080 minutes for locks 14 and 15.\n" +
-					" \n" +
-					"Optional parameters:\n" +
-					"h to hide the timer,\n" +
-					"i to enable time input from other players,\n" +
-					"r for item removal when correct password entered\n" +
-					"or lock timer runs out.\n" +
-					" \n" +
-					"Tip: replace h and/or i by another character when you need to skip them."
-				);
-			} else if (content.includes("misc")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: Misc commands:\n" +
-					"<b>/clubhelp</b> = displays the standard commands of the game (and optionaly the BCE commands)\n" +
-					"<b>/help</b> (category) = displays the QAM commands. Available categories: bondage, character, clothing, escape, fun, misc, pleasure, talking, visual, zones.\n" +
-					"<b>/login</b> (accountname) (password) = logs in a new account.\n" +
-					"<b>/relog</b> = relogs.\n" +
-					"<b>/unrestrict</b> =  removes all restrictions from game. Can use maid drink tray/other stuff. Using will give more info. Submissives should use /unrestrict soft."
-				);
-			} else if (content.includes("new")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: Main changes in v.1.5.0:\n" +
-					"- New commands: hear, s1, s2, s3, s4, see, sleep, stutter, talk.\n" +
-					"- Renamed the old gagtalk command as gagcode and improved it by using lillyBC gagspeak function.\n" +
-					"- Merged the gaglight and gagheavy commands into the new version of gagtalk command.\n" +
-					"- Improved the outfit command with the awsave and awload options (thanks to huzpsb).\n" +
-					"- Explore the help to get more info!"
-				);
-			} else if (content.includes("talking")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: Talking commands - * = more info when using\n" +
-					"<b>/action</b> (stuffhere) = inserts an action. Can also: /a.\n" +
-					"<b>/babytalk</b> (stuffhere) = speaks once as a baby. Can also: /b.\n" +
-					"<b>/gagcode</b> = toggle to decode/not decode gagged people talking. Also works against deafness.\n" +
-					"<b>/gagtalk</b> (talkmode) (stuffhere) = speaks once in specified gag talk. *\n" +
-					"<b>/hear</b> (hearmode) = forces a specific hearing mode. *\n" +
-					"<b>/moaner</b> = moans when horny and stimulated. *\n" +
-					"<b>/s1</b> (stuffhere) = speaks once in light stuttering mode.\n" +
-					"<b>/s2</b> (stuffhere) = speaks once in normal stuttering mode.\n" +
-					"<b>/s3</b> (stuffhere) = speaks once in heavy stuttering mode.\n" +
-					"<b>/s4</b> (stuffhere) = speaks once in total stuttering mode.\n" +
-					"<b>/stutter</b> (stuttermode) = forces a specific stuttering mode. *\n" +
-					"<b>/talk</b> (talkmode) = changes your talk mode. *\n" +
-					"<b>/whisper</b> (target) = sets whisper target."
-				);
-			} else if (content.includes("unl")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: The unlock command:\n" +
-					"<b>/unlock</b> (target) (locktype).\n" +
-					"All locks of any type will be removed if you don't specify the lock type.\n" +
-					" \n" +
-					"The lock types:\n" +
-					"1 Metal - 2 Exclusive - 3 Intricate - 4 High Security\n" +
-					"5 Pandora - 6 Mistress - 7 Lover - 8 Owner\n" +
-					"9 Five Minutes - 10 Combination - 11 Safeword\n" +
-					"12 Password - 13 Mistress Timer - 14 Lover Timer\n" +
-					"15 Owner Timer - 16 Timer Password"
-				);
-			} else if (content.includes("visual")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: Visual commands:\n" +
-					"<b>/anim2</b> (animhere) = changes your facial expression. Using will give more info.\n" +
-					"<b>/bg1</b> = adds hidden backgrounds to the admin selection screen. Tip for BCX users: activate BCX before login.\n" +
-					"<b>/bg2</b> (number) = uses a hidden platform background. Number must be between 1 and 55. Use /bg2 or /bg2 0 to get the list.\n" +
-					"<b>/colorchanger</b> (animhere) = gets an animation with color change. Using will give more info.\n" +
-					"<b>/pose2</b> (posehere) (target) = changes the pose of any player. Using will give more info.\n" +
-					"<b>/see</b> (visionmode) (blurlevel) = forces a specific vision mode. Using will give more info.\n" +
-					"<b>/speak</b> = animates mouth when talking in chat. Can also: /mouth or /speech."
-				);
-			} else if (content.includes("zones")) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: Zones commands:\n" +
-					"<b>/asylum</b> (minutes) = enters asylum, bypasses requirements. Specify minutes if you are a patient.\n" +
-					"<b>/chess</b> (difficulty) = starts chess, must specify difficulty first (1 easy - 2 normal - 3 hard).\n" +
-					"<b>/college</b> = enters college, bypasses requirements.\n" +
-					"<b>/game</b> (minigamehere) = launches a minigame. Using will give more info.\n" +
-					"<b>/ggts</b> (minutes) (level) = enters ggts training in asylum for the specified time. Level must be between 1 and 6.\n" +
-					"<b>/keydeposit</b> (hours) = keeps your keys safe in the vault.\n" +
-					"<b>/kinkydungeon</b> = launches Kinky Dungeon. Options: devious to toggle deviouschallenge, cheat to start with cheats.\n" +
-					"<b>/patreoncheats</b> = changes settings of patreon cheats. All except college uniform, is auto toggled by default.\n" +
-					"<b>/prison</b> (minutes) = stays in Pandora prison. More than 60 minutes is possible.\n" +
-					"<b>/store</b> = leaves chatroom, goes to store. Shows hidden items.\n" +
-					"<b>/timercell</b> (minutes) = stays in the isolation cell. More than 60 minutes is possible. Tip: use bondage commands before!"
-				);
-			}
-		} else if ((content.indexOf("/action ") == 0) || (content.indexOf("/a ") == 0)) {
+		if ((content.indexOf("/action ") == 0) || (content.indexOf("/a ") == 0)) {
 			if (content.includes("/action") == true) {
 				ServerSend("ChatRoomChat", {
 					Content: "Beep",
@@ -1195,100 +1316,6 @@ async function NEWmenu() {
 			});
 			ChatCreateBackgroundList = BackgroundsGenerateList(BackgroundsTagList);
 			ChatRoomSendLocal("Quick-AccessMenu2: You can use more backgrounds now.");
-		}
-		// 小夜修改的内容
-		else if (content.indexOf("/bg2") == 0) {
-			var bg = content.substring(4).trim();
-			var roomBackgroundRoute = [
-				"Platform/Background/Castle/",
-				"Platform/Background/Castle/Orig/",
-				"Platform/Background/Forest/",
-				"Platform/Background/Forest/Orig/",
-				"Platform/Background/College/",
-				"PlatformDialog/Background/",
-			];
-			var roomBackgroundName = [
-				`${roomBackgroundRoute[0]}Balcony`,
-				`${roomBackgroundRoute[5]}Balcony`,
-				`${roomBackgroundRoute[0]}Ballroom`,
-				`${roomBackgroundRoute[1]}BathroomOlivia`,
-				`${roomBackgroundRoute[0]}BathroomOlivia`,
-				`${roomBackgroundRoute[5]}BathroomOlivia`,
-				`${roomBackgroundRoute[0]}BedroomDungeon`,
-				`${roomBackgroundRoute[0]}BedroomEdward`,
-				`${roomBackgroundRoute[0]}BedroomIsabella`,
-				`${roomBackgroundRoute[5]}BedroomIsabella`,
-				`${roomBackgroundRoute[0]}BedroomMelody`,
-				`${roomBackgroundRoute[0]}BedroomOlivia`,
-				`${roomBackgroundRoute[5]}BedroomOlivia`,
-				`${roomBackgroundRoute[5]}BedroomOliviaDark`,
-				`${roomBackgroundRoute[5]}Black`,
-				`${roomBackgroundRoute[3]}CastleEntrance`,
-				`${roomBackgroundRoute[5]}CastleHall`,
-				`${roomBackgroundRoute[2]}CastleWall`,
-				`${roomBackgroundRoute[3]}ClearPath`,
-				`${roomBackgroundRoute[4]}CollegeArt1`,
-				`${roomBackgroundRoute[4]}CollegeClass1`,
-				`${roomBackgroundRoute[4]}CollegeHall1`,
-				`${roomBackgroundRoute[0]}CountessHall`,
-				`${roomBackgroundRoute[5]}CountessHall`,
-				`${roomBackgroundRoute[0]}CountessHallDeadEnd`,
-				`${roomBackgroundRoute[0]}Dungeon1C`,
-				`${roomBackgroundRoute[0]}Dungeon1W`,
-				`${roomBackgroundRoute[0]}DungeonCell`,
-				`${roomBackgroundRoute[5]}DungeonCell`,
-				`${roomBackgroundRoute[0]}DungeonStorage`,
-				`${roomBackgroundRoute[5]}DungeonStorage`,
-				`${roomBackgroundRoute[5]}DungeonStorageDark`,
-				`${roomBackgroundRoute[2]}CabinInterior`,
-				`${roomBackgroundRoute[2]}CabinPath`,
-				`${roomBackgroundRoute[5]}ForestCabin`,
-				`${roomBackgroundRoute[3]}WoodCabin`,
-				`${roomBackgroundRoute[3]}GreenPlain`,
-				`${roomBackgroundRoute[0]}Hall1C`,
-				`${roomBackgroundRoute[0]}Hall1W`,
-				`${roomBackgroundRoute[0]}Hall2C`,
-				`${roomBackgroundRoute[0]}Hall3C`,
-				`${roomBackgroundRoute[0]}Hall3Cv2`,
-				`${roomBackgroundRoute[0]}Hall3E`,
-				`${roomBackgroundRoute[0]}Hall3W`,
-				`${roomBackgroundRoute[0]}Hall4C`,
-				`${roomBackgroundRoute[0]}Hall4E`,
-				`${roomBackgroundRoute[0]}Hall4W1`,
-				`${roomBackgroundRoute[0]}Hall4W2`,
-				`${roomBackgroundRoute[5]}MaidBed`,
-				`${roomBackgroundRoute[3]}MountainPath`,
-				`${roomBackgroundRoute[0]}Terrace`,
-				`${roomBackgroundRoute[5]}Terrace`,
-				`${roomBackgroundRoute[3]}VulturePlain`,
-				`${roomBackgroundRoute[0]}WineCellar`,
-				`${roomBackgroundRoute[5]}WineCellar`,
-			];
-			if (bg == 0) {
-				ChatRoomSendLocal(
-					"<b>Quick-AccessMenu2</b>: List of hidden platform backgrounds:\n" +
-					"1, 2 Balcony - 3 Ballroom\n" +
-					"4 to 6 Bathroom Olivia\n" +
-					"7 Bedroom Dungeon - 8 Bedroom Edward\n" +
-					"9, 10 Bedroom Isabella - 11 Bedroom Melody\n" +
-					"12 to 14 Bedroom Olivia - 15 Black\n" +
-					"16 to 18 Castle - 19 Clear Path\n" +
-					"20 to 22 College - 23 to 25 Countess Hall\n" +
-					"26, 27 Dungeon 1 - 28, 29 Dungeon Cell\n" +
-					"30 to 32 Dungeon Storage\n" +
-					"33 to 36 Forest Cabin - 37 Green Plain\n" +
-					"38 to 48 Hall (1 to 4) - 49 Maid Bed\n" +
-					"50 Mountain Path - 51, 52 Terrace\n" +
-					"53 Vulture Plain - 54, 55 Wine Cell"
-				);
-			} else {
-				if (bg - 1 < 0 || bg > roomBackgroundName.length) {
-					ChatRoomSendLocal("错误，该编号的房间背景不存在！");
-				} else {
-					ChatCreateBackgroundSelect = `../Screens/Room/${roomBackgroundName[bg-1]}`;
-					updateBackground();
-				}
-			}
 		} else if (content.indexOf("/boost") == 0) {
 			LogAdd("ModifierLevel", "SkillModifier", 105);
 			LogAdd("ModifierDuration", "SkillModifier", CurrentTime + 3600000);
