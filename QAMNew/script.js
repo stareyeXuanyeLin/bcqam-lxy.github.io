@@ -427,7 +427,7 @@ function InstructionsAnim2Call(name) {
 				Type: "Action",
 				Dictionary: [{
 					Tag: "Beep",
-					Text: "" + Player.Nickname + animVal[name][0];
+					Text: "" + Player.Nickname + animVal[name][0]
 				}]
 			});
 		} else {
