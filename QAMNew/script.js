@@ -476,8 +476,7 @@ function InstructionsBg2Call(bgName) {
 		} else {
 			// 修改本地房间背景路径
 			let name = roomBackName[bgName - 1];
-			ChatCreateBackgroundSelect = "../Screens/Room/" + name.replace(name[0] + name[1], roomBackRoute[Number(name[
-				1])]);
+			ChatCreateBackgroundSelect = "../Screens/Room/" + name.replace(name[0] + name[1], roomBackRoute[Number(name[1])]);
 			// 更新至服务器中
 			updateBackground();
 		}
