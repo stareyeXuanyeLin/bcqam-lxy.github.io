@@ -626,7 +626,7 @@ function InstructionsClothesCall(targetName) {
 	} else if (!isNaN(targetname) && ChatRoomCharacter[targetname] != null) {
 		// 如果玩家传入的是纯数字,且对应的玩家不为空
 		target[target.length] = ChatRoomCharacter[targetname];
-	} else () {
+	} else {
 		// 优先根据名字从聊天室中获取对对象
 		target = ChatRoomCharacter.filter(arr => (arr.Name.match(targetname)));
 		// 如果取得了复数的对象或者取值为undefined，则改用昵称获取
