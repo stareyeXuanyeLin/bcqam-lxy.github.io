@@ -616,10 +616,13 @@ function InstructionsClothesCall(targetName) {
 		}
 	}
 	// 创建临时玩家对象变量
-	let target = undefined;
+	let target = [];
 	// 如果玩家没有没有指定目标名字，则设为玩家自己
 	if (targetname == "Clothes") {
 		target = ChatRoomCharacter.filter(arr => (arr.Name.match(Player.Name)));
+		if (target.length != 1) {
+			target = ChatRoomCharacter.filter(arr => (arr.MemberNumber.match(Player.MemberNumber)));
+		}
 	} else if (!isNaN(targetname) && ChatRoomCharacter[targetname] != null) {
 		// 如果玩家传入的是纯数字,且对应的玩家不为空
 		target[target.length] = ChatRoomCharacter[targetname];
