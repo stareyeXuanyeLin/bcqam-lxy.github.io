@@ -644,7 +644,7 @@ function InstructionsClothesCall(targetName) {
 					" body."
 			}]
 		});
-		if ((target[0].Name == Player.Name) == false) {
+		if (!(target[0].Name == Player.Name)) {
 			ChatRoomTargetMemberNumber = target[0].MemberNumber;
 			consoleWhisper();
 		};
