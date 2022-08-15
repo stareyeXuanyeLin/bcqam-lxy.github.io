@@ -133,8 +133,8 @@ const helpText = {
 		"<b>/profile</b> (target) = gives direct access to the profile description of any player in the chat room.\n" +
 		"<b>/search</b> (areaname) = opens room search, area is: club or asylum.\n" +
 		"<b>/theme</b> (number) = changes chat color theme after automatic relog. Number must be between 0 and 3.",
-	clothing: "<b>快速访问菜单2</b>: Clothing commands:\n" +
-		"<b>/clothes</b> (target) = changes clothes.\n" +
+	clothing: "<b>快速访问菜单2</b>: 服装命令:\n" +
+		"<b>/clothes</b> (target) = 随机修改玩家衣服。\n" +
 		"<b>/diaper</b> (actionhere) (targetname or setvalue) = plays with diapers (ABDL game). Using will give more info.\n" +
 		"<b>/naked</b> (target) = removes clothes.\n" +
 		"<b>/outfit</b> = restores/saves/loads outfit. Using will give more info.\n" +
@@ -419,7 +419,7 @@ const bg1Val_2 = [
 	["Pandora/Underground/Cell",6],
 	["Pandora/Underground/Fork",6],
 	["Pandora/Underground/Tunnel",6],
-	["SarahBedroom",3];
+	["SarahBedroom",3]
 ];
 // 重写原版ChatRoomSendChat方法
 function ChatRoomSendChatNew() {
