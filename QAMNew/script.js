@@ -110,19 +110,19 @@ const helpText = {
 	character: "<b>快速访问菜单2</b>: 字符命令 - * = 使用时的详细信息\n" +
 		"<b>/becomeownlover</b> = 成为你自己的爱人。\n" +
 		"<b>/becomeownowner</b> = 成为你自己的主人。\n" +
-		"<b>/difficulty</b> (number) = 改变游戏难度。0角色扮演-1常规-2硬核-3极端\n" +
-		"<b>/giveeverything</b> = 获取所有物品\n" +
-		"<b>/maxstatistics</b> = 提供max统计信息。\n" +
+		"<b>/difficulty</b> (number) = 改变游戏难度：0角色扮演-1常规-2硬核-3极端\n" +
+		"<b>/giveeverything</b> = 获取所有衣服和物品\n" +
+		"<b>/maxstatistics</b> = 获取最大统计数据，技能、声誉、金钱。\n" +
 		"<b>/money</b> (value) = 修改金钱。\n" +
-		"<b>/name</b> (newnamehere) = 修改临时昵称。\n" +
-		"<b>/npcpunish</b> = 启用/禁用NPC惩罚。\n" +
-		"<b>/permission</b> (number) = 更改您的项目权限*\n" +
-		"<b>/reputation</b> (reputation) (level) = 改变名誉。*\n" +
-		"<b>/resetinventory</b> = 删除你的库存。它将首先发出警告。\n" +
-		"<b>/roleplay</b> (rolehere) = 开始一个角色*\n" +
-		"<b>/rolequit</b> (role or clubarea here) = 不再扮演角色*\n" +
-		"<b>/savename</b> = 确定临时昵称。\n" +
-		"<b>/skill</b> (skill) (level) = 改变技能等级。 *\n" +
+		"<b>/name</b> (newnamehere) = 启用临时昵称，完全注销并重新登录后恢复原昵称。\n" +
+		"<b>/npcpunish</b> = 启用/禁用NPC惩罚，不管你的游戏难度是什么。\n" +
+		"<b>/permission</b> (number) = 更改您的互动项目权限，值必须是0~5之间。 *\n" +
+		"<b>/reputation</b> (reputation) (level) = 修改名誉。*\n" +
+		"<b>/resetinventory</b> = 从您的库存中删除第一次玩时未提供的所有衣服和物品。\n" +
+		"<b>/roleplay</b> (rolehere) = 开始一个角色扮演。 *\n" +
+		"<b>/rolequit</b> (role or clubarea here) = 停止角色扮演。 *\n" +
+		"<b>/savename</b> = 临时昵称变更为永久昵称。\n" +
+		"<b>/skill</b> (skill) (level) = 修改技能等级(必须是1~10之间)。 *\n" +
 		"<b>/title</b> (newtitlehere) = 获取头衔。*",
 	chat: "<b>快速访问菜单2</b>: 聊天命令:\n" +
 		"<b>/autokick</b> = toggles on auto kick for 0 day old accounts.\n" +
@@ -133,14 +133,14 @@ const helpText = {
 		"<b>/profile</b> (target) = gives direct access to the profile description of any player in the chat room.\n" +
 		"<b>/search</b> (areaname) = opens room search, area is: club or asylum.\n" +
 		"<b>/theme</b> (number) = changes chat color theme after automatic relog. Number must be between 0 and 3.",
-	clothing: "<b>Quick-AccessMenu2</b>: Clothing commands:\n" +
+	clothing: "<b>快速访问菜单2</b>: Clothing commands:\n" +
 		"<b>/clothes</b> (target) = changes clothes.\n" +
 		"<b>/diaper</b> (actionhere) (targetname or setvalue) = plays with diapers (ABDL game). Using will give more info.\n" +
 		"<b>/naked</b> (target) = removes clothes.\n" +
 		"<b>/outfit</b> = restores/saves/loads outfit. Using will give more info.\n" +
 		"<b>/underwear</b> (target) = changes underwear.\n" +
 		"<b>/wardrobe</b> (target) = opens target wardrobe.",
-	escape: "<b>Quick-AccessMenu2</b>: Escape commands:\n" +
+	escape: "<b>快速访问菜单2</b>: Escape commands:\n" +
 		"<b>/boost</b> = boosts skills, similar to maid quarters drink.\n" +
 		"<b>/collarremove</b> = removes slave/owner collar. Can also be: /removecollar.\n" +
 		"<b>/frlist</b> = gives access to friendlist with clickable links to other rooms during 15 seconds.\n" +
@@ -151,12 +151,12 @@ const helpText = {
 		"<b>/solidity</b> (value) = changes the solidity of most current bindings. Use low values to escape! Value 1 allows to escape the futuristic crate.\n" +
 		"<b>/totalrelease</b> (target) = removes all bindings, collar, harness, chastity, toys.\n" +
 		"<b>/unlock</b> (target) (locktype) = removes all locks or only a specified type of lock. More info with /help unl.",
-	fun: "<b>Quick-AccessMenu2</b>: Fun commands:\n" +
+	fun: "<b>快速访问菜单2</b>: Fun commands:\n" +
 		"<b>/cum</b> = causes an orgasm.\n" +
 		"<b>/moaner</b> = moans when horny and stimulated. Using will give more info.\n" +
 		"<b>/sleep</b> (target) = uses the sleeping pill on yourself or another player.\n" +
 		"<b>/superdice</b> (sides)  = rolls a superdice. Sides can be between 2 and 999999999.",
-	lock: "<b>Quick-AccessMenu2</b>: The lock command has several syntaxes:\n" +
+	lock: "<b>快速访问菜单2</b>: The lock command has several syntaxes:\n" +
 		"/lock (target) (locktype) for locks 1 to 8\n" +
 		"/lock (target) (locktype) (r) for lock 9\n" +
 		"/lock (target) (locktype) (code) for lock 10\n" +
@@ -171,7 +171,7 @@ const helpText = {
 		"12 Password - 13 Mistress Timer - 14 Lover Timer\n" +
 		"15 Owner Timer - 16 Timer Password\n" +
 		"Use <b>/help lpar</b> for info about other parameters",
-	lpar: "<b>Quick-AccessMenu2</b>: Special parameters of lock command:\n" +
+	lpar: "<b>快速访问菜单2</b>: Special parameters of lock command:\n" +
 		"code must be between 0 and 9999.\n" +
 		"password is limited to 8 characters.\n" +
 		"maximum time = 240 minutes for locks 13 and 16,\n" +
@@ -184,19 +184,19 @@ const helpText = {
 		"or lock timer runs out.\n" +
 		" \n" +
 		"Tip: replace h and/or i by another character when you need to skip them.",
-	misc: "<b>Quick-AccessMenu2</b>: Misc commands:\n" +
+	misc: "<b>快速访问菜单2</b>: Misc commands:\n" +
 		"<b>/clubhelp</b> = displays the standard commands of the game (and optionaly the BCE commands)\n" +
 		"<b>/help</b> (category) = displays the QAM commands. Available categories: bondage, character, clothing, escape, fun, misc, pleasure, talking, visual, zones.\n" +
 		"<b>/login</b> (accountname) (password) = logs in a new account.\n" +
 		"<b>/relog</b> = relogs.\n" +
 		"<b>/unrestrict</b> =  removes all restrictions from game. Can use maid drink tray/other stuff. Using will give more info. Submissives should use /unrestrict soft.",
-	new: "<b>Quick-AccessMenu2</b>: Main changes in v.1.5.0:\n" +
+	new: "<b>快速访问菜单2</b>: Main changes in v.1.5.0:\n" +
 		"- New commands: hear, s1, s2, s3, s4, see, sleep, stutter, talk.\n" +
 		"- Renamed the old gagtalk command as gagcode and improved it by using lillyBC gagspeak function.\n" +
 		"- Merged the gaglight and gagheavy commands into the new version of gagtalk command.\n" +
 		"- Improved the outfit command with the awsave and awload options (thanks to huzpsb).\n" +
 		"- Explore the help to get more info!",
-	talking: "<b>Quick-AccessMenu2</b>: Talking commands - * = more info when using\n" +
+	talking: "<b>快速访问菜单2</b>: Talking commands - * = more info when using\n" +
 		"<b>/action</b> (stuffhere) = inserts an action. Can also: /a.\n" +
 		"<b>/babytalk</b> (stuffhere) = speaks once as a baby. Can also: /b.\n" +
 		"<b>/gagcode</b> = toggle to decode/not decode gagged people talking. Also works against deafness.\n" +
@@ -210,7 +210,7 @@ const helpText = {
 		"<b>/stutter</b> (stuttermode) = forces a specific stuttering mode. *\n" +
 		"<b>/talk</b> (talkmode) = changes your talk mode. *\n" +
 		"<b>/whisper</b> (target) = sets whisper target.",
-	unl: "<b>Quick-AccessMenu2</b>: The unlock command:\n" +
+	unl: "<b>快速访问菜单2</b>: The unlock command:\n" +
 		"<b>/unlock</b> (target) (locktype).\n" +
 		"All locks of any type will be removed if you don't specify the lock type.\n" +
 		" \n" +
@@ -220,7 +220,7 @@ const helpText = {
 		"9 Five Minutes - 10 Combination - 11 Safeword\n" +
 		"12 Password - 13 Mistress Timer - 14 Lover Timer\n" +
 		"15 Owner Timer - 16 Timer Password",
-	visual: "<b>Quick-AccessMenu2</b>: Visual commands:\n" +
+	visual: "<b>快速访问菜单2</b>: Visual commands:\n" +
 		"<b>/anim2</b> (animhere) = changes your facial expression. Using will give more info.\n" +
 		"<b>/bg1</b> = adds hidden backgrounds to the admin selection screen. Tip for BCX users: activate BCX before login.\n" +
 		"<b>/bg2</b> (number) = uses a hidden platform background. Number must be between 1 and 55. Use /bg2 or /bg2 0 to get the list.\n" +
@@ -228,7 +228,7 @@ const helpText = {
 		"<b>/pose2</b> (posehere) (target) = changes the pose of any player. Using will give more info.\n" +
 		"<b>/see</b> (visionmode) (blurlevel) = forces a specific vision mode. Using will give more info.\n" +
 		"<b>/speak</b> = animates mouth when talking in chat. Can also: /mouth or /speech.",
-	zones: "<b>Quick-AccessMenu2</b>: Zones commands:\n" +
+	zones: "<b>快速访问菜单2</b>: Zones commands:\n" +
 		"<b>/asylum</b> (minutes) = enters asylum, bypasses requirements. Specify minutes if you are a patient.\n" +
 		"<b>/chess</b> (difficulty) = starts chess, must specify difficulty first (1 easy - 2 normal - 3 hard).\n" +
 		"<b>/college</b> = enters college, bypasses requirements.\n" +
@@ -240,7 +240,7 @@ const helpText = {
 		"<b>/prison</b> (minutes) = stays in Pandora prison. More than 60 minutes is possible.\n" +
 		"<b>/store</b> = leaves chatroom, goes to store. Shows hidden items.\n" +
 		"<b>/timercell</b> (minutes) = stays in the isolation cell. More than 60 minutes is possible. Tip: use bondage commands before!",
-	Anim2: "<b>Quick-AccessMenu2</b>: The anim2 command must include an anim.\n" +
+	Anim2: "<b>快速访问菜单2</b>: The anim2 command must include an anim.\n" +
 		" \n" +
 		"Available anims:\n" +
 		"angry1, angry2, blink, blush1, blush2, blush3, blush4,\n" +
@@ -365,6 +365,62 @@ const animVal = {
 		["Eyebrows", "Soft", 75000]
 	]
 }
+// /bg1指令参数，房间名字
+const bg1Val_1 = [
+	"Pandora/Ground/Entrance",
+	"Pandora/Second/Entrance",
+	"Pandora/Second/Rest0",
+	"Pandora/Underground/Entrance",
+	"Pandora/Underground/Rest0",
+	"AmandaCollarIntro",
+	"AmandaIntro",
+	"AsylumGGTSRoomAlert",
+	"Bar",
+	"BrickWall",
+	"Cell",
+	"CollegeCafeteria",
+	"CollegeClass2",
+	"CollegeDetention",
+	"CollegeEntrance",
+	"CollegeTeacherLounge",
+	"CollegeTennisPlay",
+	"CraftingWorkshop",
+	"Dressing",
+	"Gambling",
+	"grey",
+	"HorseStableLight",
+	"HypnoSpiral2",
+	"HypnoticSpiral",
+	"Magic",
+	"MagicSchoolEscape",
+	"MagicSchoolLaboratory",
+	"/Orig/Entrance",
+	"/Orig/Lounge",
+	"Prison",
+	"RhythmGame",
+	"RhythmGameLoading",
+	"SarahBedroom0",
+	"SarahBedroom1",
+	"SarahBedroom2",
+	"SarahBedroom3",
+	"SarahIntro",
+	"Sheet",
+	"SheetWhite",
+	"Shop",
+	"SlaveMarket",
+	"SophieIntro",
+	"White",
+];
+
+const bg1Val_2 = [
+	["Pandora/Second/Cell",6],
+	["Pandora/Second/Fork",6],
+	["Pandora/Second/Tunnel",6],
+	["Pandora/Underground/Cell",6],
+	["Pandora/Underground/Fork",6],
+	["Pandora/Underground/Tunnel",6],
+	["SarahBedroom",3];
+];
 // 重写原版ChatRoomSendChat方法
 function ChatRoomSendChatNew() {
 	// 获取输入栏文本
@@ -389,10 +445,10 @@ function InstructionsCall(fun, ...val) {
 	let funName = fun;
 	let funVal = val;
 	// 如果指令头单词存在对应方法，则执行方法
-	// 否则拼接指令并将剩余的部分作为参数传入
 	if (typeof window["Instructions" + funName + "Call"] === "function") {
 		window["Instructions" + funName + "Call"](...funVal);
 	} else {
+		// 每次循环拼接一次字符并检查方法是否存在，如果存在则调用方法，并将剩余字符串作为参数传入
 		for (let i = 0; i < val.length; i++) {
 			funName = funName + funVal[i].replace(funVal[i][0], funVal[i][0].toUpperCase());
 			funVal = val.splice(1, val.length);
@@ -450,8 +506,38 @@ function InstructionsAsylumCall(time) {
 		LogAdd("Committed", "Asylum", CurrentTime + 60000 * minutes);
 	}
 }
-
-// QAM-房间背景替换指令
+// QAM /bg1 - 解锁更多房间背景
+function InstructionsBg1Call() {
+	let BackgroundsTagList = [
+		BackgroundsTagNone,
+		BackgroundsTagIndoor,
+		BackgroundsTagOutdoor,
+		BackgroundsTagAquatic,
+		BackgroundsTagSpecial,
+		BackgroundsTagSciFiFantasy,
+		BackgroundsTagClub,
+		BackgroundsTagHouse,
+		BackgroundsTagDungeon,
+		BackgroundsTagAsylum
+	];
+	for(let i=0;i<bg1Val_1.length;i++) {
+		BackgroundsList.push({
+			Name: bg1Val_1[i],
+			Tag: [BackgroundsTagIndoor]
+		});
+	}
+	for(let i=0;i<bg1Val_2.length;i++) {
+		for(let index=0;index<=bg1Val_2[i][1];index++) {
+			BackgroundsList.push({
+				Name: bg1Val_2[i][0]+index,
+				Tag: [BackgroundsTagIndoor]
+			});
+		}
+	}
+	ChatCreateBackgroundList = BackgroundsGenerateList(BackgroundsTagList);
+	ChatRoomSendLocal("快速访问菜单2：您现在可以使用更多背景。");
+}
+// QAM /bg2 - 房间背景替换指令
 function InstructionsBg2Call(bgName) {
 	if (bgName == 0) {
 		ChatRoomSendLocal(
@@ -482,12 +568,87 @@ function InstructionsBg2Call(bgName) {
 		}
 	}
 }
+// QAM /becomeownlover - 成为你自己的爱人。包含可能出现故障的警告，您需要使用 /becomeownlover yes 确认。
+function InstructionsBecomeownloverCall(confirm) {
+	let parameter = [
+		["Propose","Accept"],
+		["CanOfferBeginWedding","Propose"],
+		["CanBeginWedding","Accept"]
+	];
+	if (confirm == "yes") {
+		for (let i=0;i<parameter.length;i++) {
+			ServerSend("AccountLovership", {
+				MemberNumber: Player.MemberNumber,
+				Action: parameter[i][0] && parameter[i][1]
+			});
+		}
+		ChatRoomSendLocal("快速访问菜单2：你已经成为自己的恋人。解除关系通过俱乐部女主人完成。");
+	} else {
+		ChatRoomSendLocal(
+			"<b>警告</b>: 在删除“作为情人的自己”时，可能会出现未确认的故障，在此期间，随机/真实的情人将被移除\n" +
+			"考虑到使用风险，请输入进行确认: <b>/becomeownlover yes</b>"
+		);
+	}
+}
+// QAM /becomeownowner - 成为自己的主人
+function InstructionsBecomeownownerCall() {
+	let parameter = [
+		["Propose","Accept"],
+		["CanOfferEndTrial","Propose"],
+		["CanEndTrial","Accept"]
+	];
+	for (let i=0;i<parameter.length;i++) {
+		ServerSend("AccountOwnership", {
+			MemberNumber: Player.MemberNumber,
+			Action: parameter[i][0] && parameter[i][1]
+		});
+	}
+	ChatRoomSendLocal("快速访问菜单2：你已经成为自己的主人。解除关系通过俱乐部女主人完成。");
+}
+// QAM /clothes - 随机更换指定玩家的衣服
+function InstructionsClothesCall(targetName) {
+	let playName = targetName;
+	// 如果传入变量是数组，则将其拼接成完整名字
+	if (Array.isArray(targetName)) {
+		targetname = targetName[0];
+		for (let i=1;i<targetName.length;i++) {
+			targetname = targetname+" "+targetName[i];
+		}
+	}
+	// 如果玩家没有没有指定目标名字，则设为玩家自己
+	if (targetname == "Clothes") {
+		targetname = Player.Name;
+	}
+	let targetfinder = new RegExp('^' + targetname + '', 'i');
+	let target = ChatRoomCharacter.filter(A => (A.Name.match(targetfinder)));
+	if (target[0] == null) {
+		let targetnumber = parseInt(targetname);
+		target[0] = ChatRoomCharacter.find((x) => x.MemberNumber === targetnumber);
+	};
+	if (target[0] != null) {
+		ServerSend("ChatRoomChat", {
+			Content: "Beep",
+			Type: "Action",
+			Dictionary: [{
+				Tag: "Beep",
+				Text: "Magical lasers put random clothes on " + target[0].Nickname +
+					" body."
+			}]
+		});
+		if ((target[0].Name == Player.Name) == false) {
+			ChatRoomTargetMemberNumber = target[0].MemberNumber;
+			consoleWhisper();
+		};
+		CharacterAppearanceFullRandom(target[0], true);
+		ChatRoomCharacterUpdate(target[0]);
+	}
+}
 // 另存旧版方法
 var ChatRoomSendChatUsed = ChatRoomSendChat;
 // 重写原版方法
 var ChatRoomSendChat = ChatRoomSendChatNew;
 
-console.log("小夜修改的内容加载完成，版本0.1.1");
+console.log("小夜修改的内容加载完成，版本0.2");
 
 /* 小夜添加的内容到上面结束 */
 
@@ -551,6 +712,7 @@ async function NEWmenu() {
 		// 		);
 		// 	}
 		// }
+		// 修改在线时间
 		else if (content.indexOf("/autokick") == 0) {
 			if (this.AutoKickOn == false || this.AutoKickOn == undefined) {
 				ChatRoomSendLocal("AutoKick: Ready.");
@@ -600,401 +762,9 @@ async function NEWmenu() {
 					"Type": "Chat"
 				});
 			}
-		} else if (content.indexOf("/becomeownlover") == 0) {
-			if (content.includes("yes")) {
-				ServerSend("AccountLovership", {
-					MemberNumber: Player.MemberNumber,
-					Action: "Propose" && "Accept"
-				})
-				ServerSend("AccountLovership", {
-					MemberNumber: Player.MemberNumber,
-					Action: "CanOfferBeginWedding" && "Propose"
-				});
-				ServerSend("AccountLovership", {
-					MemberNumber: Player.MemberNumber,
-					Action: "CanBeginWedding" && "Accept"
-				});
-				ChatRoomSendLocal("Quick-AccessMenu2: Accomplished. Break-up is done via Club Management.");
-			} else {
-				ChatRoomSendLocal(
-					"<b>Warning</b>: Uncomfirmed glitch might occur when removing self as lover, during which a random/real lover will be taken\n" +
-					"Use with risk in mind. Confirm by typing: <b>/becomeownlover yes</b>"
-				);
-			}
 		}
-		//consider writing a lover break up code to compensate for glitch, if possible.
-		else if (content.indexOf("/becomeownowner") == 0) {
-			ServerSend("AccountOwnership", {
-				MemberNumber: Player.MemberNumber,
-				Action: "Propose" && "Accept"
-			})
-			ServerSend("AccountOwnership", {
-				MemberNumber: Player.MemberNumber,
-				Action: "CanOfferEndTrial" && "Propose"
-			});
-			ServerSend("AccountOwnership", {
-				MemberNumber: Player.MemberNumber,
-				Action: "CanEndTrial" && "Accept"
-			});
-			ChatRoomSendLocal("Quick-AccessMenu2: Accomplished. Break-up is done via Club Management.");
-		}
-		//can't end free from owner, due to club's extreme mode preventing yet not allowing owner to break. Stupid...
-		else if (content.indexOf("/bg1") == 0) {
-			var BackgroundsTagList = [
-				BackgroundsTagNone,
-				BackgroundsTagIndoor,
-				BackgroundsTagOutdoor,
-				BackgroundsTagAquatic,
-				BackgroundsTagSpecial,
-				BackgroundsTagSciFiFantasy,
-				BackgroundsTagClub,
-				BackgroundsTagHouse,
-				BackgroundsTagDungeon,
-				BackgroundsTagAsylum
-			];
-			BackgroundsList.push({
-				Name: "Pandora/Ground/Entrance",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Cell0",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Cell1",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Cell2",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Cell3",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Cell4",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Cell5",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Cell6",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Entrance",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Fork0",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Fork1",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Fork2",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Fork3",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Fork4",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Fork5",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Fork6",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Rest0",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Tunnel0",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Tunnel1",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Tunnel2",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Tunnel3",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Tunnel4",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Tunnel5",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Second/Tunnel6",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Cell0",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Cell1",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Cell2",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Cell3",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Cell4",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Cell5",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Cell6",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Entrance",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Fork0",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Fork1",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Fork2",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Fork3",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Fork4",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Fork5",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Fork6",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Rest0",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Tunnel0",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Tunnel1",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Tunnel2",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Tunnel3",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Tunnel4",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Tunnel5",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Pandora/Underground/Tunnel6",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "AmandaCollarIntro",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "AmandaIntro",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "AsylumGGTSRoomAlert",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Bar",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "BrickWall",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Cell",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "CollegeCafeteria",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "CollegeClass2",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "CollegeDetention",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "CollegeEntrance",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "CollegeTeacherLounge",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "CollegeTennisPlay",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "CraftingWorkshop",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Dressing",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Gambling",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "grey",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "HorseStableLight",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "HypnoSpiral2",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "HypnoticSpiral",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Magic",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "MagicSchoolEscape",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "MagicSchoolLaboratory",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "/Orig/Entrance",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "/Orig/Lounge",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Prison",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "RhythmGame",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "RhythmGameLoading",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "SarahBedroom0",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "SarahBedroom1",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "SarahBedroom2",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "SarahBedroom3",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "SarahIntro",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Sheet",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "SheetWhite",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "Shop",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "SlaveMarket",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "SophieIntro",
-				Tag: [BackgroundsTagIndoor]
-			});
-			BackgroundsList.push({
-				Name: "White",
-				Tag: [BackgroundsTagIndoor]
-			});
-			ChatCreateBackgroundList = BackgroundsGenerateList(BackgroundsTagList);
-			ChatRoomSendLocal("Quick-AccessMenu2: You can use more backgrounds now.");
-		} else if (content.indexOf("/boost") == 0) {
+		
+		else if (content.indexOf("/boost") == 0) {
 			LogAdd("ModifierLevel", "SkillModifier", 105);
 			LogAdd("ModifierDuration", "SkillModifier", CurrentTime + 3600000);
 			ChatRoomSendLocal(
@@ -1036,35 +806,8 @@ async function NEWmenu() {
 				ChessOn = false;
 				CollegeChessGameEndALT();
 			}
-		} else if (content.indexOf("/clothes") == 0) {
-			var targetname = content.substring(8).trim();
-			if (targetname == undefined) {
-				targetname = Player.Name
-			};
-			var targetfinder = new RegExp('^' + targetname + '', 'i');
-			var target = ChatRoomCharacter.filter(A => (A.Name.match(targetfinder)));
-			if (target[0] == null) {
-				var targetnumber = parseInt(targetname);
-				target[0] = ChatRoomCharacter.find((x) => x.MemberNumber === targetnumber);
-			};
-			if (target[0] != null) {
-				ServerSend("ChatRoomChat", {
-					Content: "Beep",
-					Type: "Action",
-					Dictionary: [{
-						Tag: "Beep",
-						Text: "Magical lasers put random clothes on " + target[0].Nickname +
-							" body."
-					}]
-				});
-				if ((target[0].Name == Player.Name) == false) {
-					ChatRoomTargetMemberNumber = target[0].MemberNumber;
-					consoleWhisper();
-				};
-				CharacterAppearanceFullRandom(target[0], true);
-				ChatRoomCharacterUpdate(target[0]);
-			}
-		} else if (content.indexOf("/clubhelp") == 0) {
+		}
+		else if (content.indexOf("/clubhelp") == 0) {
 			CommandPrintHelpFor(Commands);
 		} else if ((content.indexOf("/collarremove") == 0) || (content.indexOf("/removecollar") == 0)) {
 			ServerSend("ChatRoomChat", {
