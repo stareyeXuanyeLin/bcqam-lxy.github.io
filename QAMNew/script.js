@@ -623,9 +623,14 @@ function InstructionsClothesCall(targetName) {
 		if (target.length != 1) {
 			target = ChatRoomCharacter.filter(arr => (arr.MemberNumber.match(Player.MemberNumber)));
 		}
-	} else if (!isNaN(targetname) && ChatRoomCharacter[targetname] != null) {
-		// 如果玩家传入的是纯数字,且对应的玩家不为空
-		target[target.length] = ChatRoomCharacter[targetname];
+	} else if (!isNaN(targetname)) {
+		// 如果数字的值小于房间玩家，且存在对应的玩家
+		if (targetname < ChatRoomCharacter.length && ChatRoomCharacter[targetname] != null) {
+			target[target.length] = ChatRoomCharacter[targetname];
+		} else {
+			// 否则判断为玩家ID
+			target = ChatRoomCharacter.filter(arr => (arr.MemberNumber.match(targetname)));
+		}
 	} else {
 		// 优先根据名字从聊天室中获取对对象
 		target = ChatRoomCharacter.filter(arr => (arr.Name.match(targetname)));
@@ -651,7 +656,7 @@ function InstructionsClothesCall(targetName) {
 		CharacterAppearanceFullRandom(target[0], true);
 		ChatRoomCharacterUpdate(target[0]);
 	} else {
-		ChatRoomSendLocal("错误：名字/昵称对应的玩家不存在或有复数存在!请检查输入的名字/昵称是否正确，或改用房间玩家的序号。");
+		ChatRoomSendLocal("错误：名字/昵称对应的玩家不存在或有复数存在!请检查输入的名字/昵称是否正确，或改用房间玩家的序号、ID。");
 	}
 }
 // 另存旧版方法
