@@ -607,7 +607,7 @@ function InstructionsBecomeownownerCall() {
 }
 // QAM /clothes - 随机更换指定玩家的衣服
 function InstructionsClothesCall(targetName) {
-	let playName = targetName;
+	let targetname = targetName;
 	// 如果传入变量是数组，则将其拼接成完整名字
 	if (Array.isArray(targetName)) {
 		targetname = targetName[0];
@@ -615,17 +615,23 @@ function InstructionsClothesCall(targetName) {
 			targetname = targetname+" "+targetName[i];
 		}
 	}
+	// 创建临时玩家对象变量
+	let target = undefined;
 	// 如果玩家没有没有指定目标名字，则设为玩家自己
 	if (targetname == "Clothes") {
-		targetname = Player.Name;
+		target = ChatRoomCharacter.filter(arr => (arr.Name.match(Player.Name)));
+	} else if (!isNaN(targetname) && ChatRoomCharacter[targetname] != null) {
+		// 如果玩家传入的是纯数字,且对应的玩家不为空
+		target[target.length] = ChatRoomCharacter[targetname];
+	} else () {
+		// 优先根据名字从聊天室中获取对对象
+		target = ChatRoomCharacter.filter(arr => (arr.Name.match(targetname)));
+		// 如果取得了复数的对象或者取值为undefined，则改用昵称获取
+		if (target.length != 1) {
+			target = ChatRoomCharacter.filter(arr => (arr.MemberNumber.match(targetname)));
+		}
 	}
-	let targetfinder = new RegExp('^' + targetname + '', 'i');
-	let target = ChatRoomCharacter.filter(A => (A.Name.match(targetfinder)));
-	if (target[0] == null) {
-		let targetnumber = parseInt(targetname);
-		target[0] = ChatRoomCharacter.find((x) => x.MemberNumber === targetnumber);
-	};
-	if (target[0] != null) {
+	if (target.length == 1) {
 		ServerSend("ChatRoomChat", {
 			Content: "Beep",
 			Type: "Action",
@@ -641,6 +647,8 @@ function InstructionsClothesCall(targetName) {
 		};
 		CharacterAppearanceFullRandom(target[0], true);
 		ChatRoomCharacterUpdate(target[0]);
+	} else {
+		ChatRoomSendLocal("错误：名字/昵称对应的玩家不存在或有复数存在!请检查输入的名字/昵称是否正确，或改用房间玩家的序号。");
 	}
 }
 // 另存旧版方法
