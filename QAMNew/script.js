@@ -664,7 +664,7 @@ function InstructionsCraftFileCall(nameRestraint,nameFile) {
 	// 根据装备名字获取角色身上定制装备Craft属性
 	let craftTarget = {
 		name:nameRestraint,
-		val:Player.Appearance.filter((arr)=> arr.Asset.Description.match(nameRestraint))[0].Craft;
+		val:Player.Appearance.filter((arr)=> arr.Asset.Description.match(nameRestraint))[0].Craft
 	};
 	localStorage.setItem(nameFile,JSON.stringify(craftTarget));
 }
