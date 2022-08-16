@@ -659,6 +659,25 @@ function InstructionsClothesCall(targetName) {
 		ChatRoomSendLocal("错误：名字/昵称对应的玩家不存在或有复数存在!请检查输入的名字/昵称是否正确，或改用房间玩家的序号、ID。");
 	}
 }
+// Lxy /craft file 保存定制装备
+function InstructionsCraftFileCall(nameRestraint,nameFile) {
+	// 根据装备名字获取角色身上定制装备Craft属性
+	let craftTarget = {
+		name:nameRestraint,
+		val:Player.Appearance.filter((arr)=> arr.Asset.Description.match(nameRestraint))[0].Craft;
+	};
+	localStorage.setItem(nameFile,JSON.stringify(craftTarget));
+}
+// Lxy /craft read 读取定制装备
+function InstructionsCraftReadCall(nameFile) {
+	let craftFile = JSON.parse(localStorage.getItem(nameFile));
+	for (let i=0;i < Player.Appearance.length;i++) {
+		if (Player.Appearance[i].Asset.Description.match(craftFile.name)) {
+			Player.Appearance[i].Craft = craftFile.val;
+			break;
+		}
+	}
+}
 // 另存旧版方法
 var ChatRoomSendChatUsed = ChatRoomSendChat;
 // 重写原版方法
