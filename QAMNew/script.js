@@ -450,7 +450,10 @@ function InstructionsCall(fun, ...val) {
 	} else {
 		// 每次循环拼接一次字符并检查方法是否存在，如果存在则调用方法，并将剩余字符串作为参数传入
 		for (let i = 0; i < val.length; i++) {
-			funName = funName + funVal[i].replace(funVal[i][0], funVal[i][0].toUpperCase());
+			// 如果字符是英文，则将其转换成大写
+			if (/[A-Za-z]/.test(funVal[i][0])) {
+				funName = funName + funVal[i].replace(funVal[i][0], funVal[i][0].toUpperCase());
+			}
 			funVal = val.splice(1, val.length);
 			if (typeof window["Instructions" + funName + "Call"] === "function") {
 				window["Instructions" + funName + "Call"](...funVal);
