@@ -663,20 +663,28 @@ function InstructionsClothesCall(targetName) {
 	}
 }
 // Lxy /craft file 保存定制装备
-function InstructionsCraftFileCall(nameRestraint,nameFile) {
-	// 根据装备名字获取角色身上定制装备Craft属性
-	let craftTarget = {
-		name:nameRestraint,
-		val:Player.Appearance.filter((arr)=> arr.Asset.Description.match(nameRestraint))[0].Craft
-	};
-	localStorage.setItem(nameFile,JSON.stringify(craftTarget));
+function InstructionsCraftSetCall(craftName,filtName) {
+	// 根据名字获取定制装备
+	let equ = Player.Appearance.filter((arr)=> { if(arr.Craft!=null) return arr.Craft.Name.match(craftName); })[0];
+	if (equ != null) {
+		let equSevr = {
+			equGroup:equ.Asset.Group.Name,
+			equName:equ.Asset.Name,
+			equCraft:equ.Craft
+		}
+		localStorage.setItem(filtName,JSON.stringify(equSevr));
+	}
 }
 // Lxy /craft read 读取定制装备
-function InstructionsCraftReadCall(nameFile) {
-	let craftFile = JSON.parse(localStorage.getItem(nameFile));
-	for (let i=0;i < Player.Appearance.length;i++) {
-		if (Player.Appearance[i].Asset.Description.match(craftFile.name)) {
-			Player.Appearance[i].Craft = craftFile.val;
+function InstructionsCraftGetCall(filtName) {
+	let filtCraft = JSON.parse(localStorage.getItem(filtName));
+	CharacterAppearanceSetItem(Player,filtCraft.equGroup,AssetGet(Player.AssetFamily,filtCraft.equGroup,filtCraft.equName));
+	for (let i=0;i<Player.Appearance.length;i++) {
+		if (Player.Appearance[i].Asset.Name == filtCraft.equName) {
+			Player.Appearance[i].Craft = filtCraft.equCraft
+			Player.Appearance[i].Color = [];
+			Player.Appearance[i].Color[Player.Appearance[i].Color.length] = filtCraft.equCraft.Color;
+			ChatRoomCharacterUpdate(Player);
 			break;
 		}
 	}
