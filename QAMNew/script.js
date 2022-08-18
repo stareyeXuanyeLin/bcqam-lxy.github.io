@@ -698,14 +698,10 @@ function InstructionsClothesCall(targetName) {
  * @param {String} cover - 传入yes以覆盖数据
  */
 function InstructionsCraftSetCall(craftName, keyName,cover) {
-	console.log("craftName："+craftName);
-	console.log("keyName："+keyName);
-	console.log("cover："+cover);
 	// 根据名字获取定制装备
 	let equ = Player.Appearance.filter((arr) => {
 		if (arr.Craft != null) return arr.Craft.Name.match(craftName);
 	})[0];
-	console.log(equ);
 	if (equ != null) {
 		let equSevr = {
 			equGroup: equ.Asset.Group.Name,
@@ -717,6 +713,7 @@ function InstructionsCraftSetCall(craftName, keyName,cover) {
 				InstructionsCraftDelCall(keyName);
 			}
 			localStorage.setItem(keyName, JSON.stringify(equSevr));
+			ChatRoomSendLocal(keyName+"保存成功。");
 		} else {
 			ChatRoomSendLocal("错误：键名 " + keyName + " 已存在对应数据，请更换其它键名或删除原数据,或在末尾添加yes以覆盖数据。");
 		}
