@@ -451,7 +451,7 @@ function ChatRoomSendChatNew() {
  * @param {String} fun - 指令对应方法的关键词
  * @param {Array} val - 将在后续用作变量的参数
  */
-function InstructionsCall(fun, ...val) {
+function InstructionsCall(fun, val) {
 	let funName = fun;
 	let funVal = val;
 	// 如果指令头单词存在对应方法，则执行方法
