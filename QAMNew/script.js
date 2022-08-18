@@ -698,11 +698,14 @@ function InstructionsClothesCall(targetName) {
  * @param {String} cover - 传入yes以覆盖数据
  */
 function InstructionsCraftSetCall(craftName, keyName,cover) {
-	console.log(craftName+" "+keyName);
+	console.log("craftName："+craftName);
+	console.log("keyName："+keyName);
+	console.log("cover："+cover);
 	// 根据名字获取定制装备
 	let equ = Player.Appearance.filter((arr) => {
 		if (arr.Craft != null) return arr.Craft.Name.match(craftName);
 	})[0];
+	console.log(equ);
 	if (equ != null) {
 		let equSevr = {
 			equGroup: equ.Asset.Group.Name,
