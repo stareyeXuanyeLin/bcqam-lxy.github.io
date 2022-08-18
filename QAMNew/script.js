@@ -733,13 +733,9 @@ function InstructionsCraftGetCall(keyName) {
 	let filtCraft = JSON.parse(localStorage.getItem(keyName));
 	if (filtCraft != null) {
 		// 装备道具
-		CharacterAppearanceSetItem(Player, filtCraft.equGroup, AssetGet(Player.AssetFamily, filtCraft.equGroup,
-			filtCraft.equName));
+		CharacterAppearanceSetItem(Player, filtCraft.equGroup, AssetGet(Player.AssetFamily, filtCraft.equGroup,filtCraft.equName));
 		// 更新道具属性
-		let equ = Player.Appearance.filter((arr) => {
-			if (arr.Craft != null) return arr.Craft.Name.match(filtCraft.equName);
-		})[0];
-		equ.Craft = undefined;
+		let equ = Player.Appearance.filter((arr) => arr.Asset.Name.match(filtCraft.equName))[0];
 		equ.Craft = filtCraft.equCraft;
 		equ.Color = filtCraft.equCraft.Color.trim().split(",");
 		ChatRoomCharacterUpdate(Player);
