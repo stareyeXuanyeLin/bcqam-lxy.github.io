@@ -739,6 +739,7 @@ function InstructionsCraftGetCall(keyName) {
 		let equ = Player.Appearance.filter((arr) => {
 			if (arr.Craft != null) return arr.Craft.Name.match(filtCraft.equName);
 		})[0];
+		equ.Craft = undefined;
 		equ.Craft = filtCraft.equCraft;
 		equ.Color = filtCraft.equCraft.Color.trim().split(",");
 		ChatRoomCharacterUpdate(Player);
