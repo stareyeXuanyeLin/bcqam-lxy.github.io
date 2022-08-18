@@ -697,8 +697,9 @@ function InstructionsClothesCall(targetName) {
  * Lxy /craftSet 保存定制装备
  * @param {String} craftName - 定制道具名字
  * @param {String} keyName - 储存到本地的数据键名
+ * @param {String} cover - 传入yes用于覆盖数据
  */
-function InstructionsCraftSetCall(craftName, keyName) {
+function InstructionsCraftSetCall(craftName, keyName,cover) {
 	// 根据名字获取定制装备
 	let equ = Player.Appearance.filter((arr) => {
 		if (arr.Craft != null) return arr.Craft.Name.match(craftName);
@@ -709,7 +710,8 @@ function InstructionsCraftSetCall(craftName, keyName) {
 			equName: equ.Asset.Name,
 			equCraft: equ.Craft
 		}
-		if (localStorage.getItem(keyName) == null) {
+		if (localStorage.getItem(keyName) == null || cover == "yes") {
+			if (cover == "yes") InstructionsCraftDelCall(keyName);
 			localStorage.setItem(keyName, JSON.stringify(equSevr));
 		} else {
 			ChatRoomSendLocal("错误：键名 " + keyName + " 已存在对应数据，请更换其它键名或删除原数据。");
