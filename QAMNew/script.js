@@ -101,6 +101,10 @@ const helpText = {
 		"使用<b>/help new</b>获取有关当前QAM版本更改的信息。\n" +
 		" \n" +
 		"指定目标(target)需要几个命令。它可以是真实姓名或会员号码。",
+	lxy: "<b>快速访问菜单2</b>：小夜自定义命令：\n" +
+		"<b>/craftSet</b> 装备名 储存名 = 将指定的定制装备存储至本地。\n"+
+		"<b>/craftGet</b> 存储名字 = 读取已保存的指定定制装备。\n",
+		"<b>/craftDel</b> 存储名字 = 删除已保存的指定定制装备，传入all删除所有。\n",
 	bondage: "<b>快速访问菜单2</b>：束缚命令：\n" +
 		"<b>/lock</b> = 在所有可锁定项上添加锁。有关详细信息，请使用/help lock。\n" +
 		"<b>/pet</b> (target) = 目标成为完全约束的宠物女孩。\n" +
@@ -413,15 +417,17 @@ const bg1Val_1 = [
 ];
 
 const bg1Val_2 = [
-	["Pandora/Second/Cell",6],
-	["Pandora/Second/Fork",6],
-	["Pandora/Second/Tunnel",6],
-	["Pandora/Underground/Cell",6],
-	["Pandora/Underground/Fork",6],
-	["Pandora/Underground/Tunnel",6],
-	["SarahBedroom",3]
+	["Pandora/Second/Cell", 6],
+	["Pandora/Second/Fork", 6],
+	["Pandora/Second/Tunnel", 6],
+	["Pandora/Underground/Cell", 6],
+	["Pandora/Underground/Fork", 6],
+	["Pandora/Underground/Tunnel", 6],
+	["SarahBedroom", 3]
 ];
-// 重写原版ChatRoomSendChat方法
+/**
+ * 重写原版ChatRoomSendChat方法
+ * */
 function ChatRoomSendChatNew() {
 	// 获取输入栏文本
 	const msg = ElementValue("InputChat").trim();
@@ -440,7 +446,11 @@ function ChatRoomSendChatNew() {
 		ChatRoomSendChatUsed();
 	}
 }
-// 指令调用方法
+/**
+ * 用于调用指令对应方法的方法
+ * @param {String} fun - 指令对应方法的关键词
+ * @param {Array} val - 将在后续用作变量的参数
+ */
 function InstructionsCall(fun, ...val) {
 	let funName = fun;
 	let funVal = val;
@@ -462,7 +472,10 @@ function InstructionsCall(fun, ...val) {
 		}
 	}
 }
-// QAM-Help帮助指令
+/**
+ * QAM-Help帮助指令
+ * @param {String} text - 要发送到聊天室本地的文本
+ */
 function InstructionsHelpCall(text) {
 	if (helpText.hasOwnProperty(text)) {
 		ChatRoomSendLocal(helpText[text]);
@@ -470,7 +483,10 @@ function InstructionsHelpCall(text) {
 		ChatRoomSendLocal("错误：参数不存在！");
 	}
 }
-// QAM-表情指令
+/**
+ * QAM-表情指令
+ * @param {String} name - 对应表情的key
+ */
 function InstructionsAnim2Call(name) {
 	if (name == "Anim2") {
 		InstructionsHelpCall(name);
@@ -494,9 +510,12 @@ function InstructionsAnim2Call(name) {
 		}
 	}
 }
-// QAM-进入避难所，绕过请求，如果你是患者，请添加时间
+/**
+ * QAM-进入避难所，绕过请求，如果你是患者，请添加时间
+ * @param {String} time - 时间，1 == 1分钟
+ */
 function InstructionsAsylumCall(time) {
-	var minutes = !isNaN(time)?time:0;
+	var minutes = !isNaN(time) ? time : 0;
 	ChatRoomSetLastChatRoom("");
 	ServerSend("ChatRoomLeave", "");
 	OnlineGameName = "";
@@ -509,7 +528,9 @@ function InstructionsAsylumCall(time) {
 		LogAdd("Committed", "Asylum", CurrentTime + 60000 * minutes);
 	}
 }
-// QAM /bg1 - 解锁更多房间背景
+/**
+ * QAM /bg1 - 解锁更多房间背景
+ * */
 function InstructionsBg1Call() {
 	let BackgroundsTagList = [
 		BackgroundsTagNone,
@@ -523,16 +544,16 @@ function InstructionsBg1Call() {
 		BackgroundsTagDungeon,
 		BackgroundsTagAsylum
 	];
-	for(let i=0;i<bg1Val_1.length;i++) {
+	for (let i = 0; i < bg1Val_1.length; i++) {
 		BackgroundsList.push({
 			Name: bg1Val_1[i],
 			Tag: [BackgroundsTagIndoor]
 		});
 	}
-	for(let i=0;i<bg1Val_2.length;i++) {
-		for(let index=0;index<=bg1Val_2[i][1];index++) {
+	for (let i = 0; i < bg1Val_2.length; i++) {
+		for (let index = 0; index <= bg1Val_2[i][1]; index++) {
 			BackgroundsList.push({
-				Name: bg1Val_2[i][0]+index,
+				Name: bg1Val_2[i][0] + index,
 				Tag: [BackgroundsTagIndoor]
 			});
 		}
@@ -540,7 +561,10 @@ function InstructionsBg1Call() {
 	ChatCreateBackgroundList = BackgroundsGenerateList(BackgroundsTagList);
 	ChatRoomSendLocal("快速访问菜单2：您现在可以使用更多背景。");
 }
-// QAM /bg2 - 房间背景替换指令
+/**
+ * QAM /bg2 - 房间背景替换指令
+ * @param {String} bgName - 数字，对应房间背景的序号
+ * */
 function InstructionsBg2Call(bgName) {
 	if (bgName == 0) {
 		ChatRoomSendLocal(
@@ -565,21 +589,26 @@ function InstructionsBg2Call(bgName) {
 		} else {
 			// 修改本地房间背景路径
 			let name = roomBackName[bgName - 1];
-			ChatCreateBackgroundSelect = "../Screens/Room/" + name.replace(name[0] + name[1], roomBackRoute[Number(name[1])]);
+			ChatCreateBackgroundSelect = "../Screens/Room/" + name.replace(name[0] + name[1], roomBackRoute[Number(name[
+				1])]);
 			// 更新至服务器中
 			updateBackground();
 		}
 	}
 }
-// QAM /becomeownlover - 成为你自己的爱人。包含可能出现故障的警告，您需要使用 /becomeownlover yes 确认。
+
+/**
+ * QAM /becomeownlover - 成为你自己的爱人。包含可能出现故障的警告
+ * @param {String} confirm - 需要传入yes进行确认
+ */
 function InstructionsBecomeownloverCall(confirm) {
 	let parameter = [
-		["Propose","Accept"],
-		["CanOfferBeginWedding","Propose"],
-		["CanBeginWedding","Accept"]
+		["Propose", "Accept"],
+		["CanOfferBeginWedding", "Propose"],
+		["CanBeginWedding", "Accept"]
 	];
 	if (confirm == "yes") {
-		for (let i=0;i<parameter.length;i++) {
+		for (let i = 0; i < parameter.length; i++) {
 			ServerSend("AccountLovership", {
 				MemberNumber: Player.MemberNumber,
 				Action: parameter[i][0] && parameter[i][1]
@@ -593,14 +622,16 @@ function InstructionsBecomeownloverCall(confirm) {
 		);
 	}
 }
-// QAM /becomeownowner - 成为自己的主人
+/**
+ * QAM /becomeownowner - 成为自己的主人 
+ */
 function InstructionsBecomeownownerCall() {
 	let parameter = [
-		["Propose","Accept"],
-		["CanOfferEndTrial","Propose"],
-		["CanEndTrial","Accept"]
+		["Propose", "Accept"],
+		["CanOfferEndTrial", "Propose"],
+		["CanEndTrial", "Accept"]
 	];
-	for (let i=0;i<parameter.length;i++) {
+	for (let i = 0; i < parameter.length; i++) {
 		ServerSend("AccountOwnership", {
 			MemberNumber: Player.MemberNumber,
 			Action: parameter[i][0] && parameter[i][1]
@@ -608,14 +639,17 @@ function InstructionsBecomeownownerCall() {
 	}
 	ChatRoomSendLocal("快速访问菜单2：你已经成为自己的主人。解除关系通过俱乐部女主人完成。");
 }
-// QAM /clothes - 随机更换指定玩家的衣服
+/**
+ * QAM /clothes - 随机更换指定玩家的衣服
+ * @param {String} targetName - 用于指定玩家对象的参数，可以是名字、昵称、ID、房间中的位置
+ */
 function InstructionsClothesCall(targetName) {
 	let targetname = targetName;
 	// 如果传入变量是数组，则将其拼接成完整名字
 	if (Array.isArray(targetName)) {
 		targetname = targetName[0];
-		for (let i=1;i<targetName.length;i++) {
-			targetname = targetname+" "+targetName[i];
+		for (let i = 1; i < targetName.length; i++) {
+			targetname = targetname + " " + targetName[i];
 		}
 	}
 	// 创建临时玩家对象变量
@@ -623,9 +657,6 @@ function InstructionsClothesCall(targetName) {
 	// 如果玩家没有没有指定目标名字，则设为玩家自己
 	if (targetname == "Clothes") {
 		target = ChatRoomCharacter.filter(arr => (arr.Name.match(Player.Name)));
-		if (target.length != 1) {
-			target = ChatRoomCharacter.filter(arr => (arr.MemberNumber.match(Player.MemberNumber)));
-		}
 	} else if (!isNaN(targetname)) {
 		// 如果数字的值小于房间玩家，且存在对应的玩家
 		if (targetname < ChatRoomCharacter.length && ChatRoomCharacter[targetname] != null) {
@@ -639,7 +670,7 @@ function InstructionsClothesCall(targetName) {
 		target = ChatRoomCharacter.filter(arr => (arr.Name.match(targetname)));
 		// 如果取得了复数的对象或者取值为undefined，则改用昵称获取
 		if (target.length != 1) {
-			target = ChatRoomCharacter.filter(arr => (arr.MemberNumber.match(targetname)));
+			target = ChatRoomCharacter.filter(arr => (arr.Nickname.match(targetname)));
 		}
 	}
 	if (target.length == 1) {
@@ -662,30 +693,72 @@ function InstructionsClothesCall(targetName) {
 		ChatRoomSendLocal("错误：名字/昵称对应的玩家不存在或有复数存在!请检查输入的名字/昵称是否正确，或改用房间玩家的序号、ID。");
 	}
 }
-// Lxy /craft file 保存定制装备
-function InstructionsCraftSetCall(craftName,filtName) {
+/**
+ * Lxy /craftSet 保存定制装备
+ * @param {String} craftName - 定制道具名字
+ * @param {String} keyName - 储存到本地的数据键名
+ * @param {String} cover - 传入yes以覆盖数据
+ */
+function InstructionsCraftSetCall(craftName, keyName,cover) {
+	console.log(craftName+" "+keyName);
 	// 根据名字获取定制装备
-	let equ = Player.Appearance.filter((arr)=> { if(arr.Craft!=null) return arr.Craft.Name.match(craftName); })[0];
+	let equ = Player.Appearance.filter((arr) => {
+		if (arr.Craft != null) return arr.Craft.Name.match(craftName);
+	})[0];
 	if (equ != null) {
 		let equSevr = {
-			equGroup:equ.Asset.Group.Name,
-			equName:equ.Asset.Name,
-			equCraft:equ.Craft
+			equGroup: equ.Asset.Group.Name,
+			equName: equ.Asset.Name,
+			equCraft: equ.Craft
 		}
-		localStorage.setItem(filtName,JSON.stringify(equSevr));
+		if (localStorage.getItem(keyName) == null || cover == "yes") {
+			if (cover == "yes") {
+				InstructionsCraftDelCall(keyName);
+			}
+			localStorage.setItem(keyName, JSON.stringify(equSevr));
+		} else {
+			ChatRoomSendLocal("错误：键名 " + keyName + " 已存在对应数据，请更换其它键名或删除原数据,或在末尾添加yes以覆盖数据。");
+		}
+	} else {
+		ChatRoomSendLocal("错误：未找到对应定制道具。");
 	}
 }
-// Lxy /craft read 读取定制装备
-function InstructionsCraftGetCall(filtName) {
-	let filtCraft = JSON.parse(localStorage.getItem(filtName));
-	CharacterAppearanceSetItem(Player,filtCraft.equGroup,AssetGet(Player.AssetFamily,filtCraft.equGroup,filtCraft.equName));
-	for (let i=0;i<Player.Appearance.length;i++) {
-		if (Player.Appearance[i].Asset.Name == filtCraft.equName) {
-			Player.Appearance[i].Craft = filtCraft.equCraft
-			Player.Appearance[i].Color = [];
-			Player.Appearance[i].Color[Player.Appearance[i].Color.length] = filtCraft.equCraft.Color;
-			ChatRoomCharacterUpdate(Player);
-			break;
+/**
+ * Lxy /craftGet 读取定制装备
+ * @param {String} keyName - 储存在本地的数据键名
+ * */
+function InstructionsCraftGetCall(keyName) {
+	// 根据键名从本地获取数据
+	let filtCraft = JSON.parse(localStorage.getItem(keyName));
+	if (filtCraft != null) {
+		// 装备道具
+		CharacterAppearanceSetItem(Player, filtCraft.equGroup, AssetGet(Player.AssetFamily, filtCraft.equGroup,
+			filtCraft.equName));
+		// 更新道具属性
+		let equ = Player.Appearance.filter((arr) => {
+			if (arr.Craft != null) return arr.Craft.Name.match(filtCraft.equName);
+		})[0];
+		equ.Craft = filtCraft.equCraft;
+		equ.Color = filtCraft.equCraft.Color.trim().split(",");
+		ChatRoomCharacterUpdate(Player);
+	} else {
+		ChatRoomSendLocal("错误：未找到对应定制道具。");
+	}
+}
+/**
+ * Lxy /craftDel 删除定制装备
+ * @param {String} keyName - 储存在本地的数据键名
+ * */
+function InstructionsCraftDelCall(keyName) {
+	// 如果传入的是all则删除所有
+	if (keyName == "all") {
+		localStorage.clear();
+	} else {
+		if (localStorage.getItem(keyName) != null) {
+			localStorage.removeItem(keyName);
+			ChatRoomSendLocal("删除成功。");
+		} else {
+			ChatRoomSendLocal("错误：删除失败，"+keyName+"不存在。");
 		}
 	}
 }
@@ -808,9 +881,7 @@ async function NEWmenu() {
 					"Type": "Chat"
 				});
 			}
-		}
-		
-		else if (content.indexOf("/boost") == 0) {
+		} else if (content.indexOf("/boost") == 0) {
 			LogAdd("ModifierLevel", "SkillModifier", 105);
 			LogAdd("ModifierDuration", "SkillModifier", CurrentTime + 3600000);
 			ChatRoomSendLocal(
@@ -852,8 +923,7 @@ async function NEWmenu() {
 				ChessOn = false;
 				CollegeChessGameEndALT();
 			}
-		}
-		else if (content.indexOf("/clubhelp") == 0) {
+		} else if (content.indexOf("/clubhelp") == 0) {
 			CommandPrintHelpFor(Commands);
 		} else if ((content.indexOf("/collarremove") == 0) || (content.indexOf("/removecollar") == 0)) {
 			ServerSend("ChatRoomChat", {
