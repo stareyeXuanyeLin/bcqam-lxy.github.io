@@ -1,15 +1,3 @@
-// ==UserScript==
-// @name         BC 动作拓展
-// @namespace    https://www.bondageprojects.com/
-// @version      0.1.50
-// @description  代码测试
-// @author       Echo
-// @include      /^https:\/\/(www\.)?bondageprojects\.elementfx\.com\/R\d+\/(BondageClub|\d+)(\/((index|\d+)\.html)?)?$/
-// @include      /^https:\/\/(www\.)?bondage-europe\.com\/R\d+\/(BondageClub|\d+)(\/((index|\d+)\.html)?)?$/
-// @grant        none
-// @license      MIT
-// ==/UserScript==
-
 (function () {
     'use strict';
     // =======================================================================================
