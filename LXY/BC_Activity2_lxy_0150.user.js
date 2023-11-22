@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    const remoteScriptURL = 'https://gitlab.com/Echo_87150/activity/-/raw/main/BC_Activity.user.js';
+    const remoteScriptURL = 'https://stareyexuanyelin.github.io/LXY/BC_Activity_lxy.user.js';
 
     GM_xmlhttpRequest({
         method: 'GET',
